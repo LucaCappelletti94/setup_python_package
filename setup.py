@@ -54,7 +54,7 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     tests_require=test_deps,
     install_requires=[
-        "gitpython", "requests", "validate_email", "validate_version_code", "pathlib", "validators", "webbrowser"
+        "gitpython", "requests", "validate_email", "validate_version_code", "pathlib", "validators"
     ],
     extras_require=extras,
 )
