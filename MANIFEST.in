@@ -1,1 +1,1 @@
-include setup_python_project/models/*.json
+include setup_python_package/models/*

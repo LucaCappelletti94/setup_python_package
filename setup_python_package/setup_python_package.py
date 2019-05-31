@@ -23,7 +23,7 @@ def user_input(name:str, candidate=None, validator:Callable=None)->str:
         )).strip()
         if not choice:
             choice = candidate
-        if validator is not None and validator(choice):
+        if validator is None or choice is not None and validator(choice):
             return choice
         print("Invalid value '{choice}' for {name}.".format(
             choice=choice,
@@ -58,7 +58,7 @@ def detect_package_description()->str:
     description = None
     if os.path.exists("README.md"):
         with open("README.md", "r") as f:
-            description = f.readlines()[1]
+            description = f.readlines()[1].strip()
 
     return user_input(
         "package description",
@@ -156,15 +156,16 @@ def build_setup(package:str, short_description:str, url:str, author:str, email:s
                 email=email
             ))
 
-def build_readme(account:str, package:str):
+def build_readme(account:str, package:str, description:str):
     with open("{cwd}/models/readme".format(cwd=cwd), "r") as source:
         with open("README.rst", "w") as sink:
             sink.write(source.read().format(
                 package=package,
-                account=account
+                account=account,
+                description=description
             ))
 
-def build_sonar(package:str, account:str, url:str):
+def build_sonar(package:str, account:str, url:str, version:str):
     with open("{cwd}/models/sonar".format(cwd=cwd), "r") as source:
         with open("sonar-project.properties", "w") as sink:
             sink.write(source.read().format(
@@ -172,6 +173,7 @@ def build_sonar(package:str, account:str, url:str):
                 account=account,
                 account_lower=account.lower(),
                 url=url,
+                version=version,
                 tests_directory=config["tests_directory"]
             ))
 
@@ -179,11 +181,10 @@ def validate_sonar_key(key:str)->bool:
     return len(key)==40
 
 def get_sonar_code(package:str, account:str):
-    if not url_exists("https://sonarcloud.io/dashboard/index/{account}_{package}".format(account=account, package=package)):
-        print("You still need to create the sonar project.")
-        print("Just copy the project key and paste it here.")
-        input("Press any key to go to sonar now.")
-        webbrowser.open("https://sonarcloud.io/projects/create", new=2, autoraise=True)
+    print("You might need to create the sonarcloud project.")
+    print("Just copy the project key and paste it here.")
+    input("Press any key to go to sonar now.")
+    webbrowser.open("https://sonarcloud.io/projects/create", new=2, autoraise=True)
     return user_input(
         "sonar project key",
         validator=validate_sonar_key
@@ -246,7 +247,7 @@ def setup_python_package():
     repo = load_repo()
     master = repo.head.reference
     author = detect_package_author(master.commit.author.name)
-    email = detect_package_author(master.commit.author.email)
+    email = detect_package_email(master.commit.author.email)
     url = detect_package_url(repo.remote().url.split(".git")[0])
     account = url.split("/")[-2]
     package = detect_package_name()
@@ -259,8 +260,8 @@ def setup_python_package():
     build_init(package)
     build_tests(package)
     build_setup(package, description, url, author, email)
-    build_readme(account, package)
-    build_sonar(package, account, url)
+    build_readme(account, package, description)
+    build_sonar(package, account, url, version)
     build_travis(package, account)
     build_coveralls(account, package)
     repo.git.add(update=True)
