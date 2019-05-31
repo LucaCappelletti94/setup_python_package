@@ -8,6 +8,12 @@ python:
 install:
   - pip install .[test]
 script:
+- rm -rf .coverage
+- coverage erase
+- pytest --cov=setup_python_package --cov-report xml:coverage.xml 
+- coverage combine --append
+- coverage report
+- coverage xml
 - sonar-scanner
 
 notifications:
