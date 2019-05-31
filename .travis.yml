@@ -2,6 +2,11 @@ dist: trusty
 sudo: false
 git:
   depth: false
+addons:
+  sonarcloud:
+    organization: "lucacappelletti94-github"
+    token:
+      secure: "K3s3MMmPYgdZ7voamWVPwtYdR4FExPSePCWdIZCnF7Wqn03t4f1FdzWieBgRMes/cj/XR2C8fHHulBKm0RmvzB/jSWgvFgL+/8X3DzS/OEPkp1Iv8BY9GawU0iQIMV/fYizEHCtHZ0WdmWoNSsOicElrz9NJUZjbTnsb2f2gpfV2PyhhcnWngyJks4Kp1Rct2HbMrMho/B1BCfXEpzYm2s0EPesLurT5NSzCi4h4yNX56XNp6nQ01nUd2uoo8HH7QFQNdIGvldcnP/w492XhvdTy+t6vKYtO9jdJEDsWsjc3p55Syy1G1LB/u3LmD9W4lckhq1oMs6Irn9qAVqzCahkPNNqyd7g94+HwoTBtxXxTwafPckve4bZklRzxl/AOxZbESWt34sTcaiuORmoHaVPJMwWJunumDmwuoWiYbVeQacP2lvHTGHeXZBxgjAiypvPoCbRX+CPlxKeUEFs/AJ2LlRUwDClWL/MVQTlwAiZyKYdAk6687yq6ZjmnGYTdr7lLLk2ZyK6K0OFJfephkRnqPztit9kEMvFALNnFUhisYeICAiLVMn1KbPqtdgL2OLlbHt12ZkzpuSHDiDiMJbOSWf6A5y/eWPGNayablUfKYtZoMW4fX7chu+Z+53G+69fOrcEDFienYB1F6P8wsuzDdFmiAkBKppqmRndz4EA="
 language: python
 python:
 - '3.6'
