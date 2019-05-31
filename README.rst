@@ -4,6 +4,8 @@ setup_python_package
 
 A python package that helps you create a python package.
 
+The script will guide you step by step in creating the python package and integrating it with sonarcloud, travis and coveralls.
+
 How do I install this package?
 ----------------------------------------------
 As usual, just download it using pip:
