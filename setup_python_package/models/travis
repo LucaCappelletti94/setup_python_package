@@ -18,7 +18,7 @@ script:
 - rm -rf .coverage
 - coverage erase
 - pytest --cov={package} --cov-report xml:coverage.xml 
-- coverage combine --append
+- coverage combine --append || true
 - coverage report
 - coverage xml
 - sonar-scanner

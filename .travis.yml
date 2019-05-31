@@ -11,14 +11,14 @@ language: python
 python:
 - '3.6'
 before_install:
-  - pip install --upgrade pytest
+  - pip install --upgrade pytest 
 install:
   - pip install .[test]
 script:
 - rm -rf .coverage
 - coverage erase
 - pytest --cov=setup_python_package --cov-report xml:coverage.xml 
-- coverage combine --append
+- coverage combine --append || true
 - coverage report
 - coverage xml
 - sonar-scanner
