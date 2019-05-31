@@ -12,6 +12,15 @@ As usual, just download it using pip:
 
     pip install setup_python_package
 
+Requirements
+----------------------------------------------
+You will need to have install the travis gem for encryption:
+
+.. code:: shell
+
+    gem install travis
+
+
 .. |travis| image:: https://travis-ci.org/LucaCappelletti94/setup_python_package.png
    :target: https://travis-ci.org/LucaCappelletti94/setup_python_package
 
