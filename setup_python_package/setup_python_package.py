@@ -260,5 +260,7 @@ def setup_python_package():
     build_sonar(package, account, url, version)
     build_travis(package, account)
     build_coveralls(account, package)
+    if os.path.exists("README.md"):
+        os.remove("README.md")
     repo.git.add("--all")
     repo.index.commit("[SETUP PYTHON PACKAGE] Completed basic setup package and CI integration.")
