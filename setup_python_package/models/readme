@@ -1,0 +1,33 @@
+{package}
+=========================================================================================
+|travis| |sonar_quality| |sonar_maintainability| |sonar_coverage| |coveralls_coverage| |pip|
+
+{description}
+
+How do I install this package?
+----------------------------------------------
+As usual, just download it using pip:
+
+.. code:: shell
+
+    pip install {package}
+
+.. |travis| image:: https://travis-ci.org/{account}/{package}.png
+   :target: https://travis-ci.org/{account}/{package}
+
+.. |sonar_quality| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{package}&metric=alert_status
+    :target: https://sonarcloud.io/dashboard/index/{account}_{package}
+
+.. |sonar_maintainability| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{package}&metric=sqale_rating
+    :target: https://sonarcloud.io/dashboard/index/{account}_{package}
+
+.. |sonar_coverage| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{package}&metric=coverage
+    :target: https://sonarcloud.io/dashboard/index/{account}_{package}
+
+.. |coveralls_coverage| image:: https://coveralls.io/repos/github/{account}/{package}/badge.svg?branch=master
+    :target: https://coveralls.io/github/{account}/{package}?branch=master
+
+.. |pip| image:: https://badge.fury.io/py/{package}.svg
+    :target: https://badge.fury.io/py/{package}
+
+

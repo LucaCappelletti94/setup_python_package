@@ -1,0 +1,23 @@
+# =====================================================
+#   Meta-data for the project
+# =====================================================
+sonar.projectName={package}
+sonar.projectKey={account}_{package}
+sonar.projectVersion={version}
+sonar.organization={account_lower}-github
+sonar.host.url=https://sonarcloud.io
+sonar.login={package}
+
+sonar.links.homepage={url}
+sonar.links.ci=https://travis-ci.org/{account}/{package}
+sonar.links.scm={url}
+sonar.links.issue={url}/issues
+
+sonar.language=py
+
+sonar.sources=./{package}
+sonar.tests=./{tests_directory}
+
+sonar.exclusions=**/__pycache__/*,*/__pycache__/*
+
+sonar.python.coverage.reportPath=coverage.xml
