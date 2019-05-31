@@ -42,6 +42,7 @@ setup(
     author_email="{email}",
     # Choose your license
     license='MIT',
+    include_package_data=True,
     classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
