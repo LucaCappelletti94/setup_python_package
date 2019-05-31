@@ -1,0 +1,12 @@
+gitpython
+requests
+validate_email
+validate_version_code
+pathlib
+validators
+
+[test]
+pytest
+pytest-cov
+coveralls
+validate_version_code
