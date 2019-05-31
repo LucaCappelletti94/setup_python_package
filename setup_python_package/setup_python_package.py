@@ -263,3 +263,5 @@ def setup_python_package():
     build_sonar(package, account, url)
     build_travis(package, account)
     build_coveralls(account, package)
+    repo.git.add(update=True)
+    repo.index.commit("[SETUP PYTHON PACKAGE] Completed basic setup package and CI integration. Good luck with everything. Bye.")
