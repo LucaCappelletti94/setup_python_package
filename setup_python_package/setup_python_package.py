@@ -194,10 +194,9 @@ def validate_travis_key(key:str)->bool:
     return key.endswith("=") and len(key)==684
 
 def get_travis_code(package:str, account:str):
-    if not url_exists("https://travis-ci.org/{account}/{package}".format(account=account, package=package)):
-        print("You still need to create the travis project.")
-        input("Press any key to go to travis now.")
-        webbrowser.open("https://travis-ci.org/account/repositories", new=2, autoraise=True)
+    print("You might need to create the travis project.")
+    input("Press any key to go to travis now.")
+    webbrowser.open("https://travis-ci.org/account/repositories", new=2, autoraise=True)
     sonar_code = get_sonar_code(package, account)
     print("Please run the following into a terminal window in this repository:")
     print("travis encrypt {sonar_code}".format(sonar_code=sonar_code))
@@ -264,5 +263,5 @@ def setup_python_package():
     build_sonar(package, account, url, version)
     build_travis(package, account)
     build_coveralls(account, package)
-    repo.git.add(update=True)
-    repo.index.commit("[SETUP PYTHON PACKAGE] Completed basic setup package and CI integration. Good luck with everything. Bye.")
+    repo.git.add("--all")
+    repo.index.commit("[SETUP PYTHON PACKAGE] Completed basic setup package and CI integration.")
