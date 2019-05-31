@@ -75,13 +75,10 @@ def detect_package_author(author:str):
 def detect_python_version():
     return user_input(
         "python version",
-        "{major}.{minor}.{micro}".format(
+        "{major}.{minor}".format(
             major=sys.version_info.major,
-            minor=sys.version_info.minor,
-            micro=sys.version_info.micro
-        ),
-        validate_version_code
-    )
+            minor=sys.version_info.minor
+        ))
 
 def detect_package_email(email:str):
     return user_input(
@@ -243,13 +240,13 @@ def setup_python_package():
     if not is_repo():
         print("Please run setup_python_package from within a valid git repository.")
         return
+    package = detect_package_name()
     repo = load_repo()
     master = repo.head.reference
     author = detect_package_author(master.commit.author.name)
     email = detect_package_email(master.commit.author.email)
     url = detect_package_url(repo.remote().url.split(".git")[0])
     account = url.split("/")[-2]
-    package = detect_package_name()
     os.makedirs(package, exist_ok=True)
     description = detect_package_description()
     version = detect_package_version()
