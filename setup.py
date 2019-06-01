@@ -57,5 +57,10 @@ setup(
     install_requires=[
         "gitpython", "requests", "validate_email", "validate_version_code", "pathlib", "validators"
     ],
+    entry_points={
+        'console_scripts': [
+            'spp = setup_python_package:setup_python_package',
+        ],
+    },
     extras_require=extras,
 )

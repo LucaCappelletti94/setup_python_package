@@ -24,12 +24,11 @@ You will need to have install the travis gem for encryption:
 
 Usage example
 -----------------------------------------------
-Open a python shell in your repository and import the package, in the usual fashion:
+In your terminal, from within a valid repository, just run the following:
 
-.. code:: python
+.. code:: bash
 
-    from setup_python_package image setup_python_package
-    setup_python_package()
+    spp
 
 The just follow the istructions, that go something like this (this is taken directly from the setup of another repo o' mine):
 

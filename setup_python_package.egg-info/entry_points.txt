@@ -1,0 +1,3 @@
+[console_scripts]
+spp = setup_python_package:setup_python_package
+

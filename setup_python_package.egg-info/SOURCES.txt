@@ -7,6 +7,7 @@ setup_python_package/setup_python_package.py
 setup_python_package.egg-info/PKG-INFO
 setup_python_package.egg-info/SOURCES.txt
 setup_python_package.egg-info/dependency_links.txt
+setup_python_package.egg-info/entry_points.txt
 setup_python_package.egg-info/requires.txt
 setup_python_package.egg-info/top_level.txt
 setup_python_package/models/config.json

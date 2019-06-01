@@ -1,6 +1,6 @@
 {package}
 =========================================================================================
-|travis| |sonar_quality| |sonar_maintainability| |sonar_coverage| |coveralls_coverage| |pip|
+|travis| |sonar_quality| |sonar_maintainability| |sonar_coverage| |coveralls_coverage| |pip| |downloads|
 
 {description}
 
@@ -30,4 +30,5 @@ As usual, just download it using pip:
 .. |pip| image:: https://badge.fury.io/py/{package}.svg
     :target: https://badge.fury.io/py/{package}
 
-
+.. |downloads| image:: https://pepy.tech/badge/{package}
+    :target: https://pepy.tech/badge/{package}
