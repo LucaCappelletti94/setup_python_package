@@ -1,6 +1,6 @@
 setup_python_package
 =========================================================================================
-|travis| |sonar_quality| |sonar_maintainability| |codacy| |code_climate_maintainability| |pip| |downloads|
+|travis| |sonar_quality| |sonar_maintainability| |codacy| |code_climate_maintainability| |pip|
 
 A python package that helps you create a python package.
 
