@@ -4,7 +4,7 @@ import sys
 # To use a consistent encoding
 from codecs import open as copen
 from os import path
-from validate_version_code import extract_version_code
+
 from setuptools import find_packages, setup
 
 here = path.abspath(path.dirname(__file__))
@@ -13,7 +13,22 @@ here = path.abspath(path.dirname(__file__))
 with copen(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
-__version__ = extract_version_code("{package}")
+
+def read(*parts):
+    with copen(os.path.join(here, *parts), 'r') as fp:
+        return fp.read()
+
+
+def find_version(*file_paths):
+    version_file = read(*file_paths)
+    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
+                              version_file, re.M)
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError("Unable to find version string.")
+
+
+__version__ = find_version("{package}", "__version__.py")
 
 test_deps = ['pytest', 'pytest-cov', 'coveralls', 'validate_version_code', 'codacy-coverage']
 
