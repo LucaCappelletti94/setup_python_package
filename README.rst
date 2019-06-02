@@ -4,6 +4,7 @@ setup_python_package
 
 A python package that helps you create a python package.
 
+
 How do I install this package?
 ----------------------------------------------
 As usual, just download it using pip:
@@ -17,6 +18,7 @@ Tests Coverage
 Since some software handling coverages sometime get slightly different results, here's three of them:
 
 |coveralls| |sonar_coverage| |code_climate_coverage|
+
 
 Requirements
 ----------------------------------------------
@@ -59,6 +61,8 @@ The just follow the istructions, that go something like this (this is taken dire
     You still need to create the coveralls project.
     Just copy the repo_token and paste it here.
     Press any key to go to coveralls now.
+
+
 
 
 
