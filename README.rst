@@ -1,6 +1,26 @@
 setup_python_package
-======================================================================
-|travis| |pip|
+=========================================================================================
+|travis| |sonar_quality| |sonar_maintainability| |codacy| |code_climate_maintainability| |pip| |downloads|
+
+A python package that helps you create a python package.
+
+The script will guide you step by step in creating the python package and integrating it with sonarcloud, travis and coveralls.
+
+
+How do I install this package?
+----------------------------------------------
+As usual, just download it using pip:
+
+.. code:: shell
+
+    pip install setup_python_package
+
+Tests Coverage
+----------------------------------------------
+Since some software handling coverages sometime get slightly different results, here's three of them:
+
+|coveralls| |sonar_coverage| |code_climate_coverage|
+
 
 A python package that helps you create a python package.
 
@@ -57,10 +77,45 @@ The just follow the istructions, that go something like this (this is taken dire
     Press any key to go to coveralls now.
 
 
+
+
 .. |travis| image:: https://travis-ci.org/LucaCappelletti94/setup_python_package.png
    :target: https://travis-ci.org/LucaCappelletti94/setup_python_package
+   :alt: Travis CI build
+
+.. |sonar_quality| image:: https://sonarcloud.io/api/project_badges/measure?project=LucaCappelletti94_setup_python_package&metric=alert_status
+    :target: https://sonarcloud.io/dashboard/index/LucaCappelletti94_setup_python_package
+    :alt: SonarCloud Quality
+
+.. |sonar_maintainability| image:: https://sonarcloud.io/api/project_badges/measure?project=LucaCappelletti94_setup_python_package&metric=sqale_rating
+    :target: https://sonarcloud.io/dashboard/index/LucaCappelletti94_setup_python_package
+    :alt: SonarCloud Maintainability
+
+.. |sonar_coverage| image:: https://sonarcloud.io/api/project_badges/measure?project=LucaCappelletti94_setup_python_package&metric=coverage
+    :target: https://sonarcloud.io/dashboard/index/LucaCappelletti94_setup_python_package
+    :alt: SonarCloud Coverage
+
+.. |coveralls| image:: https://coveralls.io/repos/github/LucaCappelletti94/setup_python_package/badge.svg?branch=master
+    :target: https://coveralls.io/github/LucaCappelletti94/setup_python_package?branch=master
+    :alt: Coveralls Coverage
 
 .. |pip| image:: https://badge.fury.io/py/setup_python_package.svg
     :target: https://badge.fury.io/py/setup_python_package
+    :alt: Pypi project
 
+.. |downloads| image:: https://pepy.tech/badge/setup_python_package
+    :target: https://pepy.tech/badge/setup_python_package
+    :alt: Pypi total project downloads 
 
+.. |codacy|  image:: https://api.codacy.com/project/badge/Grade/bc8592ec13494b30b87da0af3170defb    :target: https://www.codacy.com/app/LucaCappelletti94/setup_python_package?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=LucaCappelletti94/setup_python_package&amp;utm_campaign=Badge_Grade
+    :alt: Codacy Maintainability
+
+.. |code_climate_maintainability|  image:: https://api.codeclimate.com/v1/badges/8fcc0685ff43463f2b44/maintainability
+:target: https://codeclimate.com/github/LucaCappelletti94/setup_python_package/maintainability
+:alt: Maintainability
+   :alt: Code Climate Maintainability
+
+.. |code_climate_coverage|  image:: https://api.codeclimate.com/v1/badges/8fcc0685ff43463f2b44/test_coverage
+:target: https://codeclimate.com/github/LucaCappelletti94/setup_python_package/test_coverage
+:alt: Test Coverage
+   :alt: Code Climate Coverate
