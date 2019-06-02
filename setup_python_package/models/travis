@@ -12,6 +12,7 @@ python:
 - '{python_version}'
 before_install:
   - pip install --upgrade pytest
+  - pip install validate_version_code
 install:
 - pip install .[test]
 before_script:
