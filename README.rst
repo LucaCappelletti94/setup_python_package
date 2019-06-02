@@ -4,7 +4,6 @@ setup_python_package
 
 A python package that helps you create a python package.
 
-
 How do I install this package?
 ----------------------------------------------
 As usual, just download it using pip:
@@ -18,6 +17,7 @@ Tests Coverage
 Since some software handling coverages sometime get slightly different results, here's three of them:
 
 |coveralls| |sonar_coverage| |code_climate_coverage|
+
 
 
 Requirements
@@ -69,6 +69,8 @@ The just follow the istructions, that go something like this (this is taken dire
 
 
 
+
+
 .. |travis| image:: https://travis-ci.org/LucaCappelletti94/setup_python_package.png
    :target: https://travis-ci.org/LucaCappelletti94/setup_python_package
    :alt: Travis CI build
@@ -97,7 +99,8 @@ The just follow the istructions, that go something like this (this is taken dire
     :target: https://pepy.tech/badge/setup_python_package
     :alt: Pypi total project downloads 
 
-.. |codacy|  image:: https://api.codacy.com/project/badge/Grade/bc8592ec13494b30b87da0af3170defb    :target: https://www.codacy.com/app/LucaCappelletti94/setup_python_package?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=LucaCappelletti94/setup_python_package&amp;utm_campaign=Badge_Grade
+.. |codacy|  image:: https://api.codacy.com/project/badge/Grade/bc8592ec13494b30b87da0af3170defb
+:target: https://www.codacy.com/app/LucaCappelletti94/setup_python_package?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=LucaCappelletti94/setup_python_package&amp;utm_campaign=Badge_Grade
     :alt: Codacy Maintainability
 
 .. |code_climate_maintainability| image:: https://api.codeclimate.com/v1/badges/8fcc0685ff43463f2b44/maintainability

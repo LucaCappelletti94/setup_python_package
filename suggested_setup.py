@@ -24,8 +24,7 @@ extras = {
 setup(
     name='setup_python_package',
     version=__version__,
-    description="A python package that helps you create a python package.
-",
+    description="A python package that helps you create a python package.",
     long_description=long_description,
     url="https://github.com/LucaCappelletti94/setup_python_package",
     author="Luca Cappelletti",
