@@ -1,6 +1,6 @@
 {package}
 =========================================================================================
-|travis| |sonar_quality| |sonar_maintainability| |sonar_coverage| |coveralls_coverage| |pip| |downloads|
+|travis| |sonar_quality| |sonar_maintainability| |codacy| |code_climate_maintainability| |pip| |downloads|
 
 {description}
 
@@ -12,23 +12,49 @@ As usual, just download it using pip:
 
     pip install {package}
 
+Tests Coverage
+----------------------------------------------
+Since some software handling coverages sometime get slightly different results, here's three of them:
+
+|coveralls| |sonar_coverage| |code_climate_coverage|
+
+
+{long_description}
+
+
 .. |travis| image:: https://travis-ci.org/{account}/{package}.png
    :target: https://travis-ci.org/{account}/{package}
+   :alt: Travis CI build
 
 .. |sonar_quality| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{package}&metric=alert_status
     :target: https://sonarcloud.io/dashboard/index/{account}_{package}
+    :alt: SonarCloud Quality
 
 .. |sonar_maintainability| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{package}&metric=sqale_rating
     :target: https://sonarcloud.io/dashboard/index/{account}_{package}
+    :alt: SonarCloud Maintainability
 
 .. |sonar_coverage| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{package}&metric=coverage
     :target: https://sonarcloud.io/dashboard/index/{account}_{package}
+    :alt: SonarCloud Coverage
 
-.. |coveralls_coverage| image:: https://coveralls.io/repos/github/{account}/{package}/badge.svg?branch=master
+.. |coveralls| image:: https://coveralls.io/repos/github/{account}/{package}/badge.svg?branch=master
     :target: https://coveralls.io/github/{account}/{package}?branch=master
+    :alt: Coveralls Coverage
 
 .. |pip| image:: https://badge.fury.io/py/{package}.svg
     :target: https://badge.fury.io/py/{package}
+    :alt: Pypi project
 
 .. |downloads| image:: https://pepy.tech/badge/{package}
     :target: https://pepy.tech/badge/{package}
+    :alt: Pypi total project downloads 
+
+.. |codacy| {codacy}
+    :alt: Codacy Maintainability
+
+.. |code_climate_maintainability| {code_climate_maintainability}
+   :alt: Code Climate Maintainability
+
+.. |code_climate_coverage| {code_climate_coverage}
+   :alt: Code Climate Coverate

@@ -1,26 +1,44 @@
 import os
+import re
 import json
 import git
 import requests
 from validate_email import validate_email
-from validate_version_code import validate_version_code
+from validate_version_code import validate_version_code, extract_version_code
 from typing import Callable
 from pathlib import Path
 from validators import url as validate_url
-import webbrowser  
+import webbrowser
 import sys
+import shutil
+import subprocess
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 with open("{cwd}/models/config.json".format(cwd=cwd), "r") as f:
     config = json.load(f)
 
-def user_input(name:str, candidate=None, validator:Callable=None)->str:
-    candidate_wrapper = "" if candidate is None else " [{candidate}]".format(candidate=candidate)
+
+def user_input(name: str, candidate=None, validator: Callable = None, incipit:str="Please insert ", lines=1)->str:
+    candidate_sub = candidate
+    if isinstance(candidate, str) and (len(candidate)>100 or "\n" in candidate):
+        candidate_sub = candidate_sub.replace("\n", " ")
+        if len(candidate_sub)>100:
+            candidate_sub = "{first} [...] {last}".format(
+                first=candidate_sub[:50],
+                last=candidate_sub[-50:]
+            ).strip()
+    candidate_wrapper = "" if candidate is None else " [{candidate}]".format(
+        candidate=candidate_sub)
     while True:
-        choice = input("Please insert {name}{candidate_wrapper}: ".format(
+        choice = []
+        message = "{incipit}{name}{candidate_wrapper}: ".format(
+            incipit=incipit,
             name=name,
             candidate_wrapper=candidate_wrapper
-        )).strip()
+        )
+        for i in range(lines):
+            choice.append(input(message if i==0 else "").strip())
+        choice = "\n".join(choice)
         if not choice:
             choice = candidate
         if validator is None or choice is not None and validator(choice):
@@ -30,47 +48,82 @@ def user_input(name:str, candidate=None, validator:Callable=None)->str:
             name=name
         ))
 
-def url_exists(url:str):
-    return requests.get(url).status_code == 200
 
-def package_exists(package:str)->bool:
+def url_exists(url: str, max_redirect: int = 10):
+    session = requests.Session()
+    session.max_redirects = max_redirect
+    try:
+        return session.get(url).status_code == 200
+    except requests.TooManyRedirects:
+        return False
+
+
+def package_exists(package: str)->bool:
     return url_exists("https://pypi.org/project/{package}/".format(package=package))
 
-def is_valid_package_name(name:str)->bool:
-    if package_exists(name):
-        print("Package {name} already exists on pipy!".format(name=name))
-        return False
-    return all([
-        c not in name for c in ("-", ".", " ")
-    ])
+def is_owner(package:str, url:str):
+    return url in requests.get(
+        "https://pypi.org/project/{package}/".format(package=package)
+    ).text
 
-def detect_package_name()->str:
+def validate_boolean_answer(answer:str)->bool:
+    return answer.lower() in ("yes", "no")
+
+def is_valid_package_name(url:str)->Callable:
+    def wrapper(package:str):
+        if package_exists(package) and not is_owner(package, url):
+            print("Package {package} already exists on pipy!".format(package=package))
+            print("Since I don't see the package url in the repo, I believe you are not the owner.")
+            return False
+        return all([
+            c not in package for c in ("-", ".", " ")
+        ])
+
+
+def detect_package_name(url:str)->str:
     return user_input(
         "package name",
         os.getcwd().split("/")[-1],
-        is_valid_package_name
+        is_valid_package_name(url)
     )
 
-def is_valid_description(description:str)->bool:
-    return len(description)>5
 
 def detect_package_description()->str:
     description = None
     if os.path.exists("README.md"):
         with open("README.md", "r") as f:
             description = f.readlines()[1].strip()
+    elif os.path.exists("README.rst"):
+        with open("README.rst", "r") as f:
+            description = re.compile(r"\|\n\n([\s\S]+)\nHow do I install this package").findall(f.read())[0]
 
     return user_input(
         "package description",
-        description,
-        is_valid_description
+        description
     )
 
-def detect_package_author(author:str):
+
+def detect_package_long_description()->str:
+    description = None
+    if os.path.exists("README.md"):
+        with open("README.md", "r") as f:
+            description = "\n".join(f.readlines()[1:])
+    elif os.path.exists("README.rst"):
+        with open("README.rst", "r") as f:
+            description = re.compile(r"\|\n\n([\s\S]+)\n\.\. \|travis\|").findall(f.read())[0]
+
+    return user_input(
+        "package long description",
+        description
+    )
+
+
+def detect_package_author(author: str):
     return user_input(
         "author name",
         author
     )
+
 
 def detect_python_version():
     return user_input(
@@ -80,29 +133,35 @@ def detect_python_version():
             minor=sys.version_info.minor
         ))
 
-def detect_package_email(email:str):
+
+def detect_package_email(email: str):
     return user_input(
         "author email",
         email,
         validate_email
     )
 
-def detect_package_version():
+
+def detect_package_version(package:str):
+    default = extract_version_code(package) if os.path.exists("{package}/__version__.py") else "1.0.0"
     return user_input(
         "package version",
-        "1.0.0",
+        default,
         validate_version_code
     )
 
-def detect_package_url(url:str):
+
+def detect_package_url(url: str):
     return user_input(
         "package url",
         url,
         validate_url
     )
 
+
 def load_repo():
     return git.Repo(os.getcwd())
+
 
 def is_repo()->bool:
     try:
@@ -110,7 +169,8 @@ def is_repo()->bool:
         return True
     except git.InvalidGitRepositoryError:
         return False
-    
+
+
 def set_tests_directory():
     config["tests_directory"] = user_input(
         "tests directory",
@@ -122,29 +182,45 @@ def build_gitignore():
         with open(".gitignore", "w") as sink:
             sink.write(source.read())
 
-def build_version(package:str, version:str):
+
+def build_version(package: str, version: str):
     with open("{cwd}/models/version".format(cwd=cwd), "r") as source:
         with open("{package}/__version__.py".format(package=package), "w") as sink:
             sink.write(source.read().format(version=version, package=package))
 
-def build_init(package:str):
+
+def build_init(package: str):
     Path("{package}/__init__.py".format(package=package)).touch()
 
-def build_version_test(package:str):
+
+def build_version_test(package: str):
     with open("{cwd}/models/version_test".format(cwd=cwd), "r") as source:
         with open("{tests_directory}/test_version.py".format(tests_directory=config["tests_directory"]), "w") as sink:
             sink.write(source.read().format(package=package))
 
-def build_tests(package:str):
+def build_import_test(package: str):
+    with open("{cwd}/models/import_test".format(cwd=cwd), "r") as source:
+        with open("{tests_directory}/test_import.py".format(tests_directory=config["tests_directory"]), "w") as sink:
+            sink.write(source.read().format(package=package))
+
+def build_tests(package: str):
     os.makedirs(config["tests_directory"], exist_ok=True)
-    build_init(config["tests_directory"])    
+    build_init(config["tests_directory"])
     build_version_test(package)
+    build_import_test(package)
 
 
-def build_setup(package:str, short_description:str, url:str, author:str, email:str):
-    Path("MANIFEST.in").touch()
+def build_setup(package: str, short_description: str, url: str, author: str, email: str):
+    if not os.path.exists("MANIFEST.in"):
+        Path("MANIFEST.in").touch()
+    path = "setup.py"
+    if os.path.exists(path):
+        path = "suggested_setup.py"
+        print("I am not touching your setup.py, you'll need to update it yourself.")
+        print("I have generated a suggested one called {path}".format(path=path))
+
     with open("{cwd}/models/setup".format(cwd=cwd), "r") as source:
-        with open("setup.py", "w") as sink:
+        with open(path, "w") as sink:
             sink.write(source.read().format(
                 package=package,
                 short_description=short_description,
@@ -152,17 +228,23 @@ def build_setup(package:str, short_description:str, url:str, author:str, email:s
                 author=author,
                 email=email
             ))
+    
 
-def build_readme(account:str, package:str, description:str):
+
+def build_readme(account: str, package: str, description: str):
     with open("{cwd}/models/readme".format(cwd=cwd), "r") as source:
+        long_description=detect_package_long_description()
         with open("README.rst", "w") as sink:
             sink.write(source.read().format(
                 package=package,
                 account=account,
-                description=description
+                description=description,
+                long_description=long_description,
+                **get_badges()
             ))
 
-def build_sonar(package:str, account:str, url:str, version:str):
+
+def build_sonar(package: str, account: str, url: str, version: str):
     with open("{cwd}/models/sonar".format(cwd=cwd), "r") as source:
         with open("sonar-project.properties", "w") as sink:
             sink.write(source.read().format(
@@ -174,26 +256,38 @@ def build_sonar(package:str, account:str, url:str, version:str):
                 tests_directory=config["tests_directory"]
             ))
 
-def validate_sonar_key(key:str)->bool:
-    return len(key)==40
 
-def get_sonar_code(package:str, account:str):
-    print("You might need to create the sonarcloud project.")
-    print("Just copy the project key and paste it here.")
-    input("Press any key to go to sonar now.")
-    webbrowser.open("https://sonarcloud.io/projects/create", new=2, autoraise=True)
+def validate_sonar_key(key: str)->bool:
+    return len(key) == 40
+
+
+def get_sonar_code(package: str, account: str):
+    url = "https://sonarcloud.io/api/project_badges/measure?project={account}_{package}&metric=coverage".format(
+        account=account,
+        package=package
+    )
+    if "Project has not been found" in requests.get(url).text:
+        print("You still need to create the sonarcloud project.")
+        print("Just copy the project key and paste it here.")
+        input("Press any key to go to sonar now.")
+        webbrowser.open("https://sonarcloud.io/projects/create",
+                        new=2, autoraise=True)
     return user_input(
         "sonar project key",
         validator=validate_sonar_key
     )
 
-def validate_travis_key(key:str)->bool:
-    return key.endswith("=") and len(key)==684
 
-def get_travis_code(package:str, account:str):
-    print("You might need to create the travis project.")
-    input("Press any key to go to travis now.")
-    webbrowser.open("https://travis-ci.org/account/repositories", new=2, autoraise=True)
+def validate_travis_key(key: str)->bool:
+    return key.endswith("=") and len(key) == 684
+
+
+def get_travis_code(package: str, account: str):
+    if not url_exists("https://travis-ci.org/{account}/{package}.png".format(account=account, package=package), max_redirect=2):
+        print("You still need to create the travis project.")
+        input("Press any key to go to travis now.")
+        webbrowser.open(
+            "https://travis-ci.org/account/repositories", new=2, autoraise=True)
     sonar_code = get_sonar_code(package, account)
     print("Please run the following into a terminal window in this repository:")
     print("travis encrypt {sonar_code}".format(sonar_code=sonar_code))
@@ -204,63 +298,165 @@ def get_travis_code(package:str, account:str):
         validator=validate_travis_key
     )
 
-def build_travis(package:str, account:str):
-    with open("{cwd}/models/travis".format(cwd=cwd), "r") as source:
-        with open(".travis.yml", "w") as sink:
-            sink.write(source.read().format(
-                package=package,
-                account=account,
-                account_lower=account.lower(),
-                travis_code=get_travis_code(package, account),
-                python_version=detect_python_version()
-            ))
 
-def validate_coveralls_key(key:str)->bool:
-    return len(key)==33
+def validate_code_climate_code(code: str):
+    return len(code) == 64
 
-def get_coveralls_code(account:str, package:str):
+def add_code_climate(account: str, package: str):
+    service = "code_climate"
+    if badge_exists(service):
+        return
+    if not url_exists("https://codeclimate.com/github/{account}/{package}".format(account=account, package=package)):
+        print("You might need to create the code climate project.")
+        input("Press any key to go to code climate now.")
+        webbrowser.open(
+            "https://codeclimate.com/github/repos/new", new=2, autoraise=True)
+    print("Just go to repo settings/test_coverage and copy here the TEST REPORTER ID.")
+    test_reported_id = user_input(
+        "TEST REPORTER ID",
+        validator=validate_code_climate_code
+    )
+    subprocess.run(["travis", "encrypt", "CC_TEST_REPORTER_ID={test_reported_id}".format(
+        test_reported_id=test_reported_id), "--add"])
+
+    print("Ok, now we are getting the RST project badges: remember RST!")
+    print("They are the ones starting with .. image::")
+    input("Press any key to go to the code climate project settings now to get the project badge.")
+    webbrowser.open(
+            "https://codeclimate.com/github/{account}/{package}/badges".format(account=account, package=package), new=2, autoraise=True)
+    add_badge(service, "{service}_maintainability".format(service=service), user_input(
+        "Code climate maintainability badge",
+        validator=validate_badge,
+        lines=3
+    ).strip("."))
+    add_badge(service, "{service}_coverage".format(service=service), user_input(
+        "Code climate coverage badge",
+        validator=validate_badge,
+        lines=3
+    ).strip("."))
+
+def validate_codacy_code(code: str):
+    return len(code) == 32
+
+def validate_badge(badge:str):
+    return badge.startswith(".. image::") and ":target:" in badge
+
+def badge_exists(service:str)->bool:
+    if not os.path.exists(".spp_cache/badges.json"):
+        return False
+    with open(".spp_cache/badges.json", "r") as f:
+        return service in json.load(f)
+
+def get_badges():
+    with open(".spp_cache/badges.json", "r") as f:
+        return {
+            name:badge for service in json.load(f).values() for name, badge in service.items()
+        }
+
+def add_badge(service:str, badge_name:str, badge:str):
+    if os.path.exists(".spp_cache/badges.json"):
+        with open(".spp_cache/badges.json", "r") as f:
+            badges = json.load(f)
+    else:
+        badges = {}
+    service_data = badges.get(service, {})
+    service_data[badge_name] = badge
+    badges[service] = service_data
+    with open(".spp_cache/badges.json", "w") as f:
+        json.dump(badges, f)
+
+def add_codacy(account: str, package: str):
+    service = "codacy"
+    if badge_exists(service):
+        return
+    if not url_exists("https://app.codacy.com/project/{account}/{package}/dashboard".format(account=account, package=package)):
+        print("You still need to create the codacy project.")
+        input("Press any key to go to codacy now.")
+        webbrowser.open("https://app.codacy.com/wizard/projects", new=2, autoraise=True)
+    input("Press any key to go to the codacy project settings now to get the project token.")
+    webbrowser.open("https://app.codacy.com/app/{account}/{package}/settings/integrations".format(account=account, package=package))
+    test_reported_id = user_input(
+        "CODACY_PROJECT_TOKEN",
+        validator=validate_codacy_code
+    )
+    subprocess.run(["travis", "encrypt", "CODACY_PROJECT_TOKEN={test_reported_id}".format(
+        test_reported_id=test_reported_id), "--add"])
+    print("Ok, now we are getting the RST project badge: remember RST!")
+    print("It's the one starting with .. image::")
+    input("Press any key to go to the codacy project settings now to get the project badge.")
+    add_badge(service, service, user_input(
+        "codacy badge",
+        validator=validate_badge
+    ).strip("."))
+
+
+def build_travis(package: str, account: str):
+    if not os.path.exists(".travis.yml"):
+        with open("{cwd}/models/travis".format(cwd=cwd), "r") as source:
+            with open(".travis.yml", "w") as sink:
+                sink.write(source.read().format(
+                    package=package,
+                    account=account,
+                    account_lower=account.lower(),
+                    sonar_travis_code=get_travis_code(package, account),
+                    python_version=detect_python_version()
+                ))
+    add_code_climate(account, package)
+    add_codacy(account, package)
+
+def enable_coveralls(account: str, package: str):
     if not url_exists("https://coveralls.io/github/{account}/{package}".format(account=account, package=package)):
         print("You still need to create the coveralls project.")
-        print("Just copy the repo_token and paste it here.")
         input("Press any key to go to coveralls now.")
-        webbrowser.open("https://coveralls.io/repos/new", new=2, autoraise=True)
-    return user_input(
-        "coveralls repo_token",
-        validator=validate_coveralls_key
-    )
+        webbrowser.open("https://coveralls.io/repos/new",
+                        new=2, autoraise=True)
 
-def build_coveralls(account:str, package:str):
-    with open("{cwd}/models/coveralls".format(cwd=cwd), "r") as source:
-        with open(".coveralls.yml", "w") as sink:
-            sink.write(source.read().format(
-                repo_token=get_coveralls_code(account, package)
-            ))
-
-def setup_python_package():
-    if not is_repo():
-        print("Please run setup_python_package from within a valid git repository.")
-        return
-    package = detect_package_name()
-    repo = load_repo()
+def build(repo):
+    os.makedirs(".spp_cache", exist_ok=True)
+    url = detect_package_url(repo.remote().url.split(".git")[0])
+    package = detect_package_name(url)
     master = repo.head.reference
     author = detect_package_author(master.commit.author.name)
     email = detect_package_email(master.commit.author.email)
-    url = detect_package_url(repo.remote().url.split(".git")[0])
     account = url.split("/")[-2]
     os.makedirs(package, exist_ok=True)
     description = detect_package_description()
-    version = detect_package_version()
+    version = detect_package_version(package)
     set_tests_directory()
     build_gitignore()
     build_version(package, version)
     build_init(package)
     build_tests(package)
     build_setup(package, description, url, author, email)
-    build_readme(account, package, description)
     build_sonar(package, account, url, version)
     build_travis(package, account)
-    build_coveralls(account, package)
+    enable_coveralls(account, package)
+    build_readme(account, package, description)
     if os.path.exists("README.md"):
         os.remove("README.md")
     repo.git.add("--all")
-    repo.index.commit("[SETUP PYTHON PACKAGE] Completed basic setup package and CI integration.")
+    repo.index.commit(
+        "[SETUP PYTHON PACKAGE] Completed basic setup package and CI integration.")
+
+
+def setup_python_package():
+    if not is_repo():
+        print("Please run setup_python_package from within a valid git repository.")
+        return
+    repo = load_repo()
+    try:
+        answer = user_input(
+            "Do you want to create a backup commit?",
+            "yes",
+            validator=validate_boolean_answer,
+            incipit=""
+        ).lower()
+        if answer=="yes":
+            repo.git.add("--all")
+            repo.index.commit("[SPP] Created a backup.")
+        build(repo)
+    except Exception as e:
+        print("Something went wrong!")
+        print(e)
+        if answer=="yes":
+            repo.git.reset()

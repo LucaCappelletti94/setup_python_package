@@ -6,7 +6,7 @@ addons:
   sonarcloud:
     organization: "{account_lower}-github"
     token:
-      secure: {travis_code}
+      secure: {sonar_travis_code}
 language: python
 python:
 - '{python_version}'
@@ -14,6 +14,12 @@ before_install:
   - pip install --upgrade pytest
 install:
 - pip install .[test]
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 script:
 - rm -rf .coverage
 - coverage erase
@@ -25,3 +31,4 @@ script:
 
 after_success:
   - coveralls
+  - python-codacy-coverage -r coverage.xml

@@ -2,20 +2,20 @@ import os
 import re
 import sys
 # To use a consistent encoding
+from codecs import open as copen
 from os import path
 from validate_version_code import extract_version_code
-
 from setuptools import find_packages, setup
 
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the relevant file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with copen(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 __version__ = extract_version_code("setup_python_package")
 
-test_deps = ['pytest', 'pytest-cov', 'coveralls', 'validate_version_code']
+test_deps = ['pytest', 'pytest-cov', 'coveralls', 'validate_version_code', 'codacy-coverage']
 
 extras = {
     'test': test_deps,
@@ -24,7 +24,10 @@ extras = {
 setup(
     name='setup_python_package',
     version=__version__,
-    description="A python package that helps you create a python package.",
+    description="A python package that helps you create a python package.
+
+The script will guide you step by step in creating the python package and integrating it with sonarcloud, travis and coveralls.
+",
     long_description=long_description,
     url="https://github.com/LucaCappelletti94/setup_python_package",
     author="Luca Cappelletti",
@@ -40,12 +43,7 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     tests_require=test_deps,
     install_requires=[
-        "gitpython", "requests", "validate_email", "validate_version_code", "pathlib", "validators"
+        # Add here the package dependencies
     ],
-    entry_points={
-        'console_scripts': [
-            'spp = setup_python_package:setup_python_package',
-        ],
-    },
     extras_require=extras,
 )
