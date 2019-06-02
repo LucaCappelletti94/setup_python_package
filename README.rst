@@ -89,7 +89,7 @@ The just follow the istructions, that go something like this (this is taken dire
     :alt: Pypi total project downloads 
 
 .. |codacy|  image:: https://api.codacy.com/project/badge/Grade/bc8592ec13494b30b87da0af3170defb
-:target: https://www.codacy.com/app/LucaCappelletti94/setup_python_package?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=LucaCappelletti94/setup_python_package&amp;utm_campaign=Badge_Grade
+    :target: https://www.codacy.com/app/LucaCappelletti94/setup_python_package?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=LucaCappelletti94/setup_python_package&amp;utm_campaign=Badge_Grade
     :alt: Codacy Maintainability
 
 .. |code_climate_maintainability| image:: https://api.codeclimate.com/v1/badges/8fcc0685ff43463f2b44/maintainability
