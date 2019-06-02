@@ -100,7 +100,7 @@ def detect_package_description()->str:
     return user_input(
         "package description",
         description
-    )
+    ).strip()
 
 
 def detect_package_long_description()->str:
