@@ -12,7 +12,6 @@ python:
 - '3.6'
 before_install:
 - pip install --upgrade pytest
-- pip install validate_version_code
 install:
 - pip install .[test]
 before_script:
@@ -22,9 +21,6 @@ before_script:
 after_script:
 - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 script:
-- coverage combine --append || true
-- coverage report
-- coverage xml
 - sonar-scanner
 after_success:
 - coveralls
