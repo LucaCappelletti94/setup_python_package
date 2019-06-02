@@ -306,6 +306,8 @@ def add_code_climate(account: str, package: str):
     service = "code_climate"
     if badge_exists(service):
         return
+    print("="*20)
+    print("Setting up Code Climate!")
     if not url_exists("https://codeclimate.com/github/{account}/{package}".format(account=account, package=package)):
         print("You might need to create the code climate project.")
         input("Press any key to go to code climate now.")
@@ -369,6 +371,8 @@ def add_codacy(account: str, package: str):
     service = "codacy"
     if badge_exists(service):
         return
+    print("="*20)
+    print("Setting up Codacy!")
     if not url_exists("https://app.codacy.com/project/{account}/{package}/dashboard".format(account=account, package=package)):
         print("You still need to create the codacy project.")
         input("Press any key to go to codacy now.")
