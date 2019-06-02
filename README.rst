@@ -18,9 +18,6 @@ Since some software handling coverages sometime get slightly different results, 
 
 |coveralls| |sonar_coverage| |code_climate_coverage|
 
-
-
-
 Requirements
 ----------------------------------------------
 You will need to have install the travis gem for encryption:
@@ -62,17 +59,6 @@ The just follow the istructions, that go something like this (this is taken dire
     You still need to create the coveralls project.
     Just copy the repo_token and paste it here.
     Press any key to go to coveralls now.
-
-
-
-
-
-
-
-
-
-
-
 
 .. |travis| image:: https://travis-ci.org/LucaCappelletti94/setup_python_package.png
    :target: https://travis-ci.org/LucaCappelletti94/setup_python_package

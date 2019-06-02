@@ -18,9 +18,7 @@ Since some software handling coverages sometime get slightly different results, 
 
 |coveralls| |sonar_coverage| |code_climate_coverage|
 
-
 {long_description}
-
 
 .. |travis| image:: https://travis-ci.org/{account}/{package}.png
    :target: https://travis-ci.org/{account}/{package}
