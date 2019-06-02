@@ -313,6 +313,9 @@ def add_code_climate(account: str, package: str):
         input("Press any key to go to code climate now.")
         webbrowser.open(
             "https://codeclimate.com/github/repos/new", new=2, autoraise=True)
+    input("Press any key to go to code climate package settings.")
+    webbrowser.open(
+            "https://codeclimate.com/github/{account}/{package}/settings".format(account=account, package=package), new=2, autoraise=True)
     print("Just go to repo settings/test_coverage and copy here the TEST REPORTER ID.")
     test_reported_id = user_input(
         "TEST REPORTER ID",
