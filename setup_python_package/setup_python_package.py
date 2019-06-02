@@ -110,7 +110,7 @@ def detect_package_long_description()->str:
             description = "\n".join(f.readlines()[1:])
     elif os.path.exists("README.rst"):
         with open("README.rst", "r") as f:
-            description = re.compile(r"\|\n\n([\s\S]+)\n\.\. \|travis\|").findall(f.read())[0]
+            description = re.compile(r"code_climate_coverage\|\n\n([\s\S]+)\n\.\. \|travis\|").findall(f.read())[0]
 
     return user_input(
         "package long description",
@@ -395,10 +395,10 @@ def add_codacy(account: str, package: str):
     print("It's the one starting with .. image::")
     input("Press any key to go to the codacy project settings now to get the project badge.")
     webbrowser.open("https://app.codacy.com/app/{account}/{package}/settings".format(account=account, package=package), new=2, autoraise=True)
-    add_badge(service, service, user_input(
+    add_badge(service, service, "\n".join(user_input(
         "codacy badge",
         validator=validate_badge
-    ).strip("."))
+    ).strip(".").split("    ")))
 
 
 def build_travis(package: str, account: str):
