@@ -21,9 +21,6 @@ before_script:
 after_script:
 - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 script:
-- rm -rf .coverage
-- coverage erase
-- pytest --cov=setup_python_package --cov-report xml:coverage.xml
 - coverage combine --append || true
 - coverage report
 - coverage xml
