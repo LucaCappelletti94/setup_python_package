@@ -27,6 +27,26 @@ setup(
     description="A python package that helps you create a python package.
 
 The script will guide you step by step in creating the python package and integrating it with sonarcloud, travis and coveralls.
+
+
+How do I install this package?
+----------------------------------------------
+As usual, just download it using pip:
+
+.. code:: shell
+
+    pip install setup_python_package
+
+Tests Coverage
+----------------------------------------------
+Since some software handling coverages sometime get slightly different results, here's three of them:
+
+|coveralls| |sonar_coverage| |code_climate_coverage|
+
+
+A python package that helps you create a python package.
+
+The script will guide you step by step in creating the python package and integrating it with sonarcloud, travis and coveralls.
 ",
     long_description=long_description,
     url="https://github.com/LucaCappelletti94/setup_python_package",
