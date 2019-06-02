@@ -53,8 +53,10 @@ Since some software handling coverages sometime get slightly different results, 
 .. |codacy| {codacy}
     :alt: Codacy Maintainability
 
-.. |code_climate_maintainability| {code_climate_maintainability}
-   :alt: Code Climate Maintainability
+.. |code_climate_maintainability| image:: {code_climate_maintainability_url}
+    :target: https://codeclimate.com/github/{account}/{package}/maintainability
+    :alt: Maintainability
 
-.. |code_climate_coverage| {code_climate_coverage}
-   :alt: Code Climate Coverate
+.. |code_climate_coverage| image:: {code_climate_coverage_url}
+    :target: https://codeclimate.com/github/{account}/{package}/test_coverage
+    :alt: Code Climate Coverate

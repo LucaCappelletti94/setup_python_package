@@ -302,6 +302,9 @@ def get_travis_code(package: str, account: str):
 def validate_code_climate_code(code: str):
     return len(code) == 64
 
+def extract_image_url(badge:str)->str:
+    return re.compile(r"image:: (.+)").findall(badge)[0]
+
 def add_code_climate(account: str, package: str):
     service = "code_climate"
     if badge_exists(service):
@@ -329,16 +332,16 @@ def add_code_climate(account: str, package: str):
     input("Press any key to go to the code climate project settings now to get the project badge.")
     webbrowser.open(
             "https://codeclimate.com/github/{account}/{package}/badges".format(account=account, package=package), new=2, autoraise=True)
-    add_badge(service, "{service}_maintainability".format(service=service), user_input(
+    add_badge(service, "{service}_maintainability_url".format(service=service), extract_image_url(user_input(
         "Code climate maintainability badge",
         validator=validate_badge,
         lines=3
-    ).strip("."))
-    add_badge(service, "{service}_coverage".format(service=service), user_input(
+    ).strip(".")))
+    add_badge(service, "{service}_coverage_url".format(service=service), extract_image_url(user_input(
         "Code climate coverage badge",
         validator=validate_badge,
         lines=3
-    ).strip("."))
+    ).strip(".")))
 
 def validate_codacy_code(code: str):
     return len(code) == 32
@@ -444,7 +447,7 @@ def build(repo):
         os.remove("README.md")
     repo.git.add("--all")
     repo.index.commit(
-        "[SETUP PYTHON PACKAGE] Completed basic setup package and CI integration.")
+        "[SPP] Completed basic setup package and CI integration.")
 
 
 def setup_python_package():
@@ -463,8 +466,7 @@ def setup_python_package():
             repo.git.add("--all")
             repo.index.commit("[SPP] Created a backup.")
         build(repo)
-    except Exception as e:
+    except BaseException:
         print("Something went wrong!")
-        print(e)
         if answer=="yes":
             repo.git.reset()
