@@ -378,7 +378,7 @@ def add_codacy(account: str, package: str):
         input("Press any key to go to codacy now.")
         webbrowser.open("https://app.codacy.com/wizard/projects", new=2, autoraise=True)
     input("Press any key to go to the codacy project settings now to get the project token.")
-    webbrowser.open("https://app.codacy.com/app/{account}/{package}/settings/integrations".format(account=account, package=package))
+    webbrowser.open("https://app.codacy.com/app/{account}/{package}/settings/integrations".format(account=account, package=package), new=2, autoraise=True)
     test_reported_id = user_input(
         "CODACY_PROJECT_TOKEN",
         validator=validate_codacy_code
