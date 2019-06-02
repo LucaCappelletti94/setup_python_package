@@ -391,6 +391,7 @@ def add_codacy(account: str, package: str):
     print("Ok, now we are getting the RST project badge: remember RST!")
     print("It's the one starting with .. image::")
     input("Press any key to go to the codacy project settings now to get the project badge.")
+    webbrowser.open("https://app.codacy.com/app/{account}/{package}/settings".format(account=account, package=package), new=2, autoraise=True)
     add_badge(service, service, user_input(
         "codacy badge",
         validator=validate_badge
