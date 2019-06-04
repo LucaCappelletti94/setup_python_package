@@ -1,2 +1,2 @@
 """Current version of package setup_python_package"""
-__version__ = "1.0.2"
+__version__ = "1.0.3"

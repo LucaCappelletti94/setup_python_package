@@ -12,6 +12,7 @@ import webbrowser
 import sys
 import shutil
 import subprocess
+import traceback
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 with open("{cwd}/models/config.json".format(cwd=cwd), "r") as f:
@@ -38,6 +39,7 @@ def user_input(name: str, candidate=None, validator: Callable = None, incipit:st
         )
         for i in range(lines):
             choice.append(input(message if i==0 else "").strip())
+                
         choice = "\n".join(choice)
         if not choice:
             choice = candidate
@@ -90,31 +92,43 @@ def detect_package_name(url:str)->str:
 
 def detect_package_description()->str:
     description = None
-    if os.path.exists("README.md"):
-        with open("README.md", "r") as f:
-            description = f.readlines()[1].strip()
-    elif os.path.exists("README.rst"):
-        with open("README.rst", "r") as f:
-            description = re.compile(r"\|\n\n([\s\S]+)\nHow do I install this package").findall(f.read())[0]
+    try:
+        if os.path.exists("setup.py"):
+            with open("setup.py", "r") as f:
+                description = re.compile(r"""[(\s,]+description\s*=\s*["']([\s\S]*?)["']""").findall(f.read())[0]
+        elif os.path.exists("README.md"):
+            with open("README.md", "r") as f:
+                description = f.readlines()[1].strip()
+        elif os.path.exists("README.rst"):
+            with open("README.rst", "r") as f:
+                description = re.compile(r"\|\n\n([\s\S]+)\nHow do I install this package").findall(f.read())[0]
+    except Exception:
+        pass
+    
 
     return user_input(
         "package description",
-        description
+        description,
+        validator=lambda x: isinstance(x, str) and len(x.strip())>0
     ).strip()
 
 
 def detect_package_long_description()->str:
     description = None
-    if os.path.exists("README.md"):
-        with open("README.md", "r") as f:
-            description = "\n".join(f.readlines()[1:])
-    elif os.path.exists("README.rst"):
-        with open("README.rst", "r") as f:
-            description = re.compile(r"code_climate_coverage\|\n\n([\s\S]+)\n\.\. \|travis\|").findall(f.read())[0]
-
+    try:
+        if os.path.exists("README.md"):
+            with open("README.md", "r") as f:
+                description = "\n".join(f.readlines()[1:])
+        elif os.path.exists("README.rst"):
+            with open("README.rst", "r") as f:
+                description = re.compile(r"code_climate_coverage\|\n\n([\s\S]+)\n\.\. \|travis\|").findall(f.read())[0]
+    except Exception:
+        pass
+    
     return user_input(
         "package long description",
-        description
+        description,
+        validator=lambda x: isinstance(x, str) and len(x.strip())>0
     )
 
 
@@ -143,7 +157,7 @@ def detect_package_email(email: str):
 
 
 def detect_package_version(package:str):
-    default = extract_version_code(package) if os.path.exists("{package}/__version__.py") else "1.0.0"
+    default = extract_version_code(package) if os.path.exists("{package}/__version__.py".format(package=package)) else "1.0.0"
     return user_input(
         "package version",
         default,
@@ -179,8 +193,10 @@ def set_tests_directory():
 
 def build_gitignore():
     with open("{cwd}/models/gitignore".format(cwd=cwd), "r") as source:
-        with open(".gitignore", "w") as sink:
-            sink.write(source.read())
+        with open(".gitignore", "r") as gitignore:
+            rows = set(gitignore.readlines() + source.readlines())
+        with open(".gitignore", "w") as gitignore:
+            gitignore.write("\n".join(rows))
 
 
 def build_version(package: str, version: str):
@@ -214,7 +230,26 @@ def build_setup(package: str, short_description: str, url: str, author: str, ema
     if not os.path.exists("MANIFEST.in"):
         Path("MANIFEST.in").touch()
     path = "setup.py"
+    test_dependencies = config["test_dependencies"]
+    install_dependencies = []
     if os.path.exists(path):
+        with open(path, "r") as f:
+            content = f.read()
+        try:
+            if "test_deps" in content:
+                test_dependencies = list(set(test_dependencies + [
+                    key.strip("\"' \n") for key in re.compile(r"test_deps\s*=\s*\[([\s\S]+?)\]").findall(content)[0].split(",")
+                ]))
+        except Exception:
+            pass
+        try:
+            if "install_requires" in content:
+                install_dependencies = list(set(install_dependencies+[
+                    key.strip("\"' \n") for key in re.compile(r"install_requires\s*=\s*\[([\s\S]+?)\]").findall(content)[0].split(",")
+                ]))
+        except Exception:
+            pass
+        
         path = "suggested_setup.py"
         print("I am not touching your setup.py, you'll need to update it yourself.")
         print("I have generated a suggested one called {path}".format(path=path))
@@ -226,7 +261,9 @@ def build_setup(package: str, short_description: str, url: str, author: str, ema
                 short_description=short_description,
                 url=url,
                 author=author,
-                email=email
+                email=email,
+                install_dependencies=json.dumps(install_dependencies, indent=4),
+                test_dependencies=json.dumps(test_dependencies, indent=4)
             ))
     
 
@@ -466,7 +503,9 @@ def setup_python_package():
             repo.git.add("--all")
             repo.index.commit("[SPP] Created a backup.")
         build(repo)
-    except BaseException:
+    except Exception as e:
+        traceback.print_exc()
+        print(e)
         print("Something went wrong!")
         if answer=="yes":
             repo.git.reset()

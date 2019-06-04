@@ -1,3 +1,10 @@
 {
-    "tests_directory":"tests"
+    "tests_directory":"tests",
+    "test_dependencies":[
+        "pytest",
+        "pytest-cov",
+        "coveralls",
+        "validate_version_code",
+        "codacy-coverage"
+    ]
 }
