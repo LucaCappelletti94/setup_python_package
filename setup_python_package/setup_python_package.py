@@ -193,9 +193,12 @@ def set_tests_directory():
 
 def build_gitignore():
     with open("{cwd}/models/gitignore".format(cwd=cwd), "r") as source:
-        with open(".gitignore", "r") as gitignore:
-            rows = set(gitignore.readlines() + source.readlines())
-        with open(".gitignore", "w") as gitignore:
+        path = ".gitignore"
+        rows = source.readlines()
+        if os.path.exists(path):
+            with open(path, "r") as gitignore:
+                rows = set([e.strip() for e in gitignore.readlines() + rows if e.strip()])
+        with open(path, "w") as gitignore:
             gitignore.write("\n".join(rows))
 
 
