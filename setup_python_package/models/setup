@@ -2,14 +2,13 @@ import os
 import re
 # To use a consistent encoding
 from codecs import open as copen
-from os import path
 
 from setuptools import find_packages, setup
 
-here = path.abspath(path.dirname(__file__))
+here = os.path.abspath(os.path.dirname(__file__))
 
 # Get the long description from the relevant file
-with copen(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with copen(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 
