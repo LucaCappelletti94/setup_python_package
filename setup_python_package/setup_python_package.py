@@ -469,8 +469,20 @@ def build_travis(package: str, account: str):
                     sonar_travis_code=get_travis_code(package, account),
                     python_version=detect_python_version()
                 ))
-    add_code_climate(account, package)
-    add_codacy(account, package)
+    if user_input(
+            "Do you want to add code climate?",
+            "yes",
+            validator=validate_boolean_answer,
+            incipit=""
+        ).lower() == "yes":
+        add_code_climate(account, package)
+    if user_input(
+            "Do you want to add codacy?",
+            "yes",
+            validator=validate_boolean_answer,
+            incipit=""
+        ).lower() == "yes":
+        add_codacy(account, package)
 
 
 def enable_coveralls(account: str, package: str):
