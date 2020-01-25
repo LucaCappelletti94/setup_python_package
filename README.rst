@@ -35,7 +35,8 @@ In your terminal, from within a valid repository, just run the following:
 
     spp
 
-The just follow the istructions, that go something like this (this is taken directly from the setup of another repo o' mine):
+The just follow the istructions, that go something like this
+(this is taken directly from the setup of another repo o' mine):
 
 .. code:: bash
 
