@@ -14,7 +14,8 @@ As usual, just download it using pip:
 
 Tests Coverage
 ----------------------------------------------
-Since some software handling coverages sometime get slightly different results, here's three of them:
+Since some software handling coverages sometime get
+slightly different results, here's three of them:
 
 |coveralls| |sonar_coverage| |code_climate_coverage|
 
@@ -80,15 +81,15 @@ The just follow the istructions, that go something like this (this is taken dire
     :target: https://coveralls.io/github/LucaCappelletti94/setup_python_package?branch=master
     :alt: Coveralls Coverage
 
-.. |pip| image:: https://badge.fury.io/py/setup_python_package.svg
-    :target: https://badge.fury.io/py/setup_python_package
+.. |pip| image:: https://badge.fury.io/py/setup-python-package.svg
+    :target: https://badge.fury.io/py/setup-python-package
     :alt: Pypi project
 
-.. |downloads| image:: https://pepy.tech/badge/setup_python_package
-    :target: https://pepy.tech/badge/setup_python_package
-    :alt: Pypi total project downloads 
+.. |downloads| image:: https://pepy.tech/badge/setup-python-package
+    :target: https://pepy.tech/badge/setup-python-package
+    :alt: Pypi total project downloads
 
-.. |codacy|  image:: https://api.codacy.com/project/badge/Grade/bc8592ec13494b30b87da0af3170defb
+.. |codacy| image:: https://api.codacy.com/project/badge/Grade/bc8592ec13494b30b87da0af3170defb
     :target: https://www.codacy.com/app/LucaCappelletti94/setup_python_package?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=LucaCappelletti94/setup_python_package&amp;utm_campaign=Badge_Grade
     :alt: Codacy Maintainability
 
