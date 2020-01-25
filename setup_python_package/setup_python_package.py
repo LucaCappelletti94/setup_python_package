@@ -85,6 +85,7 @@ def is_valid_package_name(url: str) -> Callable:
         return all([
             c not in package for c in ("-", ".", " ")
         ])
+    return wrapper
 
 
 def detect_package_name(url: str) -> str:
