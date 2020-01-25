@@ -46,7 +46,7 @@ Since some software handling coverages sometime get slightly different results, 
 
 .. |downloads| image:: https://pepy.tech/badge/{package}
     :target: https://pepy.tech/badge/{package}
-    :alt: Pypi total project downloads 
+    :alt: Pypi total project downloads
 
 .. |codacy| {codacy}
     :alt: Codacy Maintainability

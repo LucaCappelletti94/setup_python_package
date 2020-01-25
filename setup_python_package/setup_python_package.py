@@ -421,7 +421,7 @@ def add_badge(service: str, badge_name: str, badge: str):
     else:
         badges = {}
     service_data = badges.get(service, {})
-    service_data[badge_name] = badge
+    service_data[badge_name] = badge.strip()
     badges[service] = service_data
     with open(".spp_cache/badges.json", "w") as f:
         json.dump(badges, f)
