@@ -1,5 +1,5 @@
 from git import InvalidGitRepositoryError
-from .load_repository import load_repository
+from ..utils.load_repository import load_repository
 
 def is_cwd_a_repository() -> bool:
     try:

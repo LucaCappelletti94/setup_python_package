@@ -2,15 +2,14 @@ import os
 import webbrowser
 from userinput import userinput
 from ..utils import travis_project_exists
-from ..queries import get_python_version
+from ..queries import (get_python_version, get_sonar_code, get_codacy_code,
+                       get_codacy_badge, get_code_climate_code, get_code_climate_badges)
+from ..badges import badge_exists
+from ..enablers import enable_travis
 
 
 def build_travis(account: str, package: str):
-    if not travis_project_exists(account, package):
-        print("You still need to create the travis project.")
-        input("Press any key to go to travis now.")
-        webbrowser.open(
-            "https://travis-ci.org/account/repositories", new=2, autoraise=True)
+    enable_travis()
     if not os.path.exists(".travis.yml"):
         with open("{}/models/travis".format(os.path.dirname(os.path.abspath(__file__))), "r") as source:
             with open(".travis.yml", "w") as sink:
@@ -18,21 +17,24 @@ def build_travis(account: str, package: str):
                     package=package,
                     account=account,
                     account_lower=account.lower(),
-                    sonar_travis_code=get_travis_code(package, account),
+                    sonar_travis_code=get_sonar_code(),
                     python_version=".".join(
                         get_python_version().split(".")[:2])
                 ))
-    if userinput(
+    if  not badge_exists("code_climate") and userinput(
         "Do you want to add code climate?",
         "yes",
         validator="human_bool",
         sanitizer="human_bool"
     ):
-        add_code_climate(account, package)
-    if user_input(
+        get_code_climate_code()
+        get_code_climate_badges()
+
+    if not badge_exists("codacy") and userinput(
         "Do you want to add codacy?",
         "yes",
-        validator=validate_boolean_answer,
-        incipit=""
-    ).lower() == "yes":
-        add_codacy(account, package)
+        validator="human_bool",
+        sanitizer="human_bool"
+    ):
+        get_codacy_code()
+        get_codacy_badge()

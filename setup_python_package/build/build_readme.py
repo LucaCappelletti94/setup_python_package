@@ -1,18 +1,22 @@
 import os
 from ..queries import get_long_description
+from ..badges import load_badges
+from ..utils import load_repository_author_name, load_repository_name
 
 
 def build_readme(
-    account: str,
     package: str,
-    description: str
+    short_description: str
 ):
     with open("{}/models/readme".format(os.path.dirname(os.path.abspath(__file__))), "r") as source:
         with open("README.rst", "w") as sink:
             sink.write(source.read().format(
                 package=package,
-                account=account,
-                description=description,
+                account=load_repository_author_name(),
+                repository=load_repository_name(),
+                short_description=short_description,
                 long_description=get_long_description(),
-                **get_badges()
+                **load_badges()
             ))
+    if os.path.exists("README.md"):
+        os.remove("README.md")

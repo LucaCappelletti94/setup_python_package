@@ -55,7 +55,14 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     tests_require=test_deps,
     install_requires=[
-        "gitpython", "requests", "validate_email", "validate_version_code", "pathlib", "validators"
+        "gitpython",
+        "requests",
+        "validate_email",
+        "validate_version_code",
+        "pathlib",
+        "validators",
+        "pypandoc",
+        "userinput"
     ],
     entry_points={
         'console_scripts': [

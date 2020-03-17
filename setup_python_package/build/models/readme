@@ -22,41 +22,41 @@ get slightly different results, here's three of them:
 
 {long_description}
 
-.. |travis| image:: https://travis-ci.org/{account}/{package}.png
-   :target: https://travis-ci.org/{account}/{package}
+.. |travis| image:: https://travis-ci.org/{account}/{repository}.png
+   :target: https://travis-ci.org/{account}/{repository}
    :alt: Travis CI build
 
-.. |sonar_quality| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{package}&metric=alert_status
-    :target: https://sonarcloud.io/dashboard/index/{account}_{package}
+.. |sonar_quality| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{repository}&metric=alert_status
+    :target: https://sonarcloud.io/dashboard/index/{account}_{repository}
     :alt: SonarCloud Quality
 
-.. |sonar_maintainability| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{package}&metric=sqale_rating
-    :target: https://sonarcloud.io/dashboard/index/{account}_{package}
+.. |sonar_maintainability| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{repository}&metric=sqale_rating
+    :target: https://sonarcloud.io/dashboard/index/{account}_{repository}
     :alt: SonarCloud Maintainability
 
-.. |sonar_coverage| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{package}&metric=coverage
-    :target: https://sonarcloud.io/dashboard/index/{account}_{package}
+.. |sonar_coverage| image:: https://sonarcloud.io/api/project_badges/measure?project={account}_{repository}&metric=coverage
+    :target: https://sonarcloud.io/dashboard/index/{account}_{repository}
     :alt: SonarCloud Coverage
 
-.. |coveralls| image:: https://coveralls.io/repos/github/{account}/{package}/badge.svg?branch=master
-    :target: https://coveralls.io/github/{account}/{package}?branch=master
+.. |coveralls| image:: https://coveralls.io/repos/github/{account}/{repository}/badge.svg?branch=master
+    :target: https://coveralls.io/github/{account}/{repository}?branch=master
     :alt: Coveralls Coverage
 
-.. |pip| image:: https://badge.fury.io/py/{package}.svg
-    :target: https://badge.fury.io/py/{package}
+.. |pip| image:: https://badge.fury.io/py/{pypi_package}.svg
+    :target: https://badge.fury.io/py/{pypi_package}
     :alt: Pypi project
 
-.. |downloads| image:: https://pepy.tech/badge/{package}
-    :target: https://pepy.tech/badge/{package}
+.. |downloads| image:: https://pepy.tech/badge/{pypi_package}
+    :target: https://pepy.tech/badge/{pypi_package}
     :alt: Pypi total project downloads
 
 .. |codacy| {codacy}
     :alt: Codacy Maintainability
 
 .. |code_climate_maintainability| image:: {code_climate_maintainability_url}
-    :target: https://codeclimate.com/github/{account}/{package}/maintainability
+    :target: https://codeclimate.com/github/{account}/{repository}/maintainability
     :alt: Maintainability
 
 .. |code_climate_coverage| image:: {code_climate_coverage_url}
-    :target: https://codeclimate.com/github/{account}/{package}/test_coverage
+    :target: https://codeclimate.com/github/{account}/{repository}/test_coverage
     :alt: Code Climate Coverate

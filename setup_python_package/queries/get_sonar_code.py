@@ -2,17 +2,15 @@ from ..utils import sonar_project_exists
 import webbrowser
 from userinput import userinput
 import subprocess
+from ..enablers import enable_sonar
 
 
 def validate_sonar_key(key: str) -> bool:
     return len(key) == 40
 
-def get_sonar_code(account: str, package: str):
-    if not sonar_project_exists(account, package):
-        print("You still need to create the sonarcloud project.")
-        input("Press any key to go to sonar now.")
-        webbrowser.open("https://sonarcloud.io/projects/create",
-                        new=2, autoraise=True)
+
+def get_sonar_code():
+    enable_sonar()
     print("Just copy the project key and paste it here.")
     sonar_key = userinput(
         "sonar project key",
