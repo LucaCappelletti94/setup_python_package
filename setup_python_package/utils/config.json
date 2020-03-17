@@ -1,6 +1,6 @@
 {
     "tests_directory":"tests",
-    "test_dependencies":[
+    "tests_dependencies":[
         "pytest",
         "pytest-cov",
         "coveralls",

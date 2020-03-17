@@ -1,9 +1,11 @@
-\.vscode/
-\.DS_Store
+.vscode/
+.DS_Store
 __pycache__
 */__pycache__/*
 **/__pycache__/*
+__pycache__
 .notipy.json
 .single_run
 .coverage*
 coverage.xml
+*.egg-info
