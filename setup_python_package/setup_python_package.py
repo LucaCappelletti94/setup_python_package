@@ -3,7 +3,6 @@ import re
 import json
 import git
 import requests
-from validate_email import validate_email
 from validate_version_code import validate_version_code, extract_version_code
 from typing import Callable
 from pathlib import Path
@@ -13,35 +12,6 @@ import sys
 import shutil
 import subprocess
 import traceback
-
-
-from .utils import coveralls_project_exists
-
-
-def validate_sonar_key(key: str) -> bool:
-    return len(key) == 40
-
-
-
-def validate_travis_key(key: str) -> bool:
-    return key.endswith("=") and len(key) == 684
-
-
-def get_travis_code(package: str, account: str):
-    if not url_exists("https://travis-ci.org/{account}/{package}.png".format(account=account, package=package), max_redirect=2):
-        print("You still need to create the travis project.")
-        input("Press any key to go to travis now.")
-        webbrowser.open(
-            "https://travis-ci.org/account/repositories", new=2, autoraise=True)
-    sonar_code = get_sonar_code(package, account)
-    print("Please run the following into a terminal window in this repository:")
-    print("travis encrypt {sonar_code}".format(sonar_code=sonar_code))
-    print("Copy only the generate key here, it looks like this:")
-    print("secure: \"very_long_key\" ")
-    return user_input(
-        "travis project key",
-        validator=validate_travis_key
-    )
 
 
 def validate_code_climate_code(code: str):

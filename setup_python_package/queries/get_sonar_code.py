@@ -7,11 +7,6 @@ import subprocess
 def validate_sonar_key(key: str) -> bool:
     return len(key) == 40
 
-
-def validate_travis_key(key: str) -> bool:
-    return key.endswith("=") and len(key) == 684
-
-
 def get_sonar_code(account: str, package: str):
     if not sonar_project_exists(account, package):
         print("You still need to create the sonarcloud project.")
@@ -31,5 +26,4 @@ def get_sonar_code(account: str, package: str):
         ],
         capture_output=True
     )
-    print(result.stdout)
-    print(result.stderr)
+    return result.stdout.decode("utf-8").strip().strip('"')
