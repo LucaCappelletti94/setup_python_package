@@ -20,7 +20,12 @@ after_script:
 script:
   - rm -rf .coverage
   - coverage erase
-  - pytest -s --cov=userinput --cov-report xml:coverage.xml
+  - cd ..
+  - mkdir tmp_repo
+  - cd tmp_repo
+  - git clone https://github.com/LucaCappelletti94/setup_python_package
+  - cd setup_python_package
+  - pytest -s --cov=setup_python_package --cov-report xml:coverage.xml
   - coverage combine --append || true
   - coverage report
   - coverage xml
