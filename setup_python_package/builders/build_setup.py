@@ -2,9 +2,11 @@ import re
 import os
 import json
 from .build_manifest import build_manifest
-from ..utils import load_configuration
+from ..utils import load_configuration, load_repository_url
+from ..queries import get_package_author_email, get_package_author_name
 
-def build_setup(package: str, short_description: str, url: str, author: str, email: str):
+
+def build_setup(package: str, short_description: str):
     build_manifest()
     path = "setup.py"
     test_dependencies = load_configuration()["tests_dependencies"]
@@ -36,9 +38,9 @@ def build_setup(package: str, short_description: str, url: str, author: str, ema
             sink.write(source.read().format(
                 package=package,
                 short_description=short_description,
-                url=url,
-                author=author,
-                email=email,
+                url=load_repository_url(),
+                author=get_package_author_email(),
+                email=get_package_author_name(),
                 install_dependencies=json.dumps(
                     install_dependencies, indent=4),
                 test_dependencies=json.dumps(test_dependencies, indent=4)

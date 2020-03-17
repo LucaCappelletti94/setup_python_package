@@ -9,23 +9,29 @@ addons:
       secure: OXH8m7SY2Bi2l2J9mO9b1D90P5qcjWztp7QS4hEvsUWBibPJm4xaq5bNexzLlF6XfIiagI2X6d19N9huyXJgp270tLd8c3mct9Da/JrQZ1pLawC+pfs+JphIwyVjYuFapHVHZJHtTJFl1GNkPqi6zxoaopg7dCKlRfe4fvAg83W9nv16A0HmKR/kyOuE4QboPcFZf+crJGazseR+zocSTDw5v3+iRF/vPccSwYv5u8DipiUxlsR7fDfgWTVGDomOpM2f3tMNS5oqpBaRJiXKC6xA0KyqCmImd02wUKeDT62eo/FJz2AFZ+VMhs7UJc4tELcwshGUgUCXcW8zBsZpDhPWhg0fgnwcKWg4kdNRs5M5sJxsa+Cxr/z/re42uFEfB5R6eiCMAwqPxiKoWObbRRYNnj4MuohUqxllneE060Q6WMb0K+2A2BgqtIsucxYYRbXMa3wi/my9I68703gKHNEecNtcvsMt+5D2Gd8IugmtCpU3uge4OE17yy9FkLMjbjdIybMCrRneE9vxDqs/8O/RDvUyiRJyydaW5OpgX5Smr0tMWEuhQqhCpvDlHA9MWi0c2L98KU/u1bYqmKURaJOShQcIuYGqxxDHaF/Ook0liYKGM4G9/MjmNbj/orNHMXWgxai+ECca1C5uWZqvpMW6sEpXY0Rk+69RGp3kRdw=
 language: python
 python:
-- '3.6'
+  - "3.6"
 before_install:
-- pip install --upgrade pytest
+  - pip install --upgrade pytest
 install:
-- pip install .[test]
+  - pip install .[test]
 before_script:
-- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-- chmod +x ./cc-test-reporter
-- "./cc-test-reporter before-build"
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - "./cc-test-reporter before-build"
 after_script:
-- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+  - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 script:
-- sonar-scanner
+  - rm -rf .coverage
+  - coverage erase
+  - pytest -s --cov=userinput --cov-report xml:coverage.xml
+  - coverage combine --append || true
+  - coverage report
+  - coverage xml
+  - sonar-scanner
 after_success:
-- coveralls
-- python-codacy-coverage -r coverage.xml
+  - coveralls
+  - python-codacy-coverage -r coverage.xml
 env:
   global:
-  - secure: UujdQBaBWmOnS6twQLKrcoa2F6jxPGgz3SdCMAEJ05fvwObkHPComrdqIgEugJ0lnRqrbFtCggAifxE8pfXqZufmR9RGY6eius3T9NynU4B9wZj8DE+SvowpoGcUH1cO7hfCx20Kxa5IaLNgf4NCtFHmZ+XhURjIus3VpKK7AVmzugkzMX3jvioK4waidh1LFN3pnKv1R4H+mRCkrV6IWUY8smjhRd4SOYXcc839JRPmLYvHG1GidHwgP3+ec9hozIYX2jZ+C7tXXyqRF7MTv+Qm2RDT4rkEjVU+v23sXy/p3m50ixPhQ9S1HVIbtKcytLcp0Xbx2Zl21bF2pXlEDjierVBj6junri4GqdOpgTFHaK/04+daQgMDKuEeDniNrpbt6I+itF7DJuApzZMIgFuUBD/YAxDAakLlhpxA1C5itXyW8Ok70gOWex7oXB1uDG//1AAyEvUwvB3Tjyrlcqu9ATkJGonFz1elRa1KdjhpfS/EenDZ/o1k97yZFKedvd25Nsf2mQexlFBT3BZVITjljTpPAJTC5RZEvUVc8JChAHPUhlbb2e/VNaTI+Eu/nkFvBDcIOriXnyyXqBqc+54OiWQnpl3g3taKBtWMvlljI6ZYpUa45PVgItzDYaloxLFC1eunwemira2DoNL6NE45ulTVvPUu2BrMik8eMRE=
-  - secure: YNqfocxVMIw/49SZVhWrhet26ZTjiLuGwMhYRmuu2xfkOGxvAPGA77X66Sn1EdfdmpsxHqokn8Ptn47ckJD8oKtitTYlS9CJLCWpOPXwio9g9KWrH5SstkgYf0cWwilmknq5XxwQ8O0hXegZ8BZyE0hr9j+rgSaPLDqZJebV3Acc/HbIDsYHSt36JeJQG7x0iKEoFF0xKwgTS3T26Wy0ocvWVLRX+J+BHxd9vl0RfRKKPDHTtwllDt628vkCMgkatfpLCni3NXOQy7LrgGo6DVjKoL2LmKtyN0G/Zethf/QCUgXsJR2D7BhqJNp/J9nBH5m9cK3AFC3lcwywS3VCQ7vlo7uWzjVRUYdIHNlYniOCSvhPQZSbfWg8qDvJNkS46zz98fHKO48mCXbdb5vSiMIIDfQCfgRDwmfmdma0kA0EeMbL7h8dtBoK7ZZhPJsdj7HwoYNAh7agEGBmPkZbZXvQ3gvNQrY3F3CP6Y2E3mVlG/NlRQ5T5sy7sqzhiZrwzHNq6fISce+06Eih/xGQL5xLk+t7qegolv57PRm2ErAznV1cQl9XfivnlrrNRs/M8WcgJYgnNGsoMx0IvLRet+WqrWXbnPwlChTIpXvwA4N+ZB5fA8dD5IwhjjKTxBQLXPi8E86IJ9Wn6+OQx16+Q2TYlUaGQIm36z2/e8+V0sw=
+    - secure: UujdQBaBWmOnS6twQLKrcoa2F6jxPGgz3SdCMAEJ05fvwObkHPComrdqIgEugJ0lnRqrbFtCggAifxE8pfXqZufmR9RGY6eius3T9NynU4B9wZj8DE+SvowpoGcUH1cO7hfCx20Kxa5IaLNgf4NCtFHmZ+XhURjIus3VpKK7AVmzugkzMX3jvioK4waidh1LFN3pnKv1R4H+mRCkrV6IWUY8smjhRd4SOYXcc839JRPmLYvHG1GidHwgP3+ec9hozIYX2jZ+C7tXXyqRF7MTv+Qm2RDT4rkEjVU+v23sXy/p3m50ixPhQ9S1HVIbtKcytLcp0Xbx2Zl21bF2pXlEDjierVBj6junri4GqdOpgTFHaK/04+daQgMDKuEeDniNrpbt6I+itF7DJuApzZMIgFuUBD/YAxDAakLlhpxA1C5itXyW8Ok70gOWex7oXB1uDG//1AAyEvUwvB3Tjyrlcqu9ATkJGonFz1elRa1KdjhpfS/EenDZ/o1k97yZFKedvd25Nsf2mQexlFBT3BZVITjljTpPAJTC5RZEvUVc8JChAHPUhlbb2e/VNaTI+Eu/nkFvBDcIOriXnyyXqBqc+54OiWQnpl3g3taKBtWMvlljI6ZYpUa45PVgItzDYaloxLFC1eunwemira2DoNL6NE45ulTVvPUu2BrMik8eMRE=
+    - secure: YNqfocxVMIw/49SZVhWrhet26ZTjiLuGwMhYRmuu2xfkOGxvAPGA77X66Sn1EdfdmpsxHqokn8Ptn47ckJD8oKtitTYlS9CJLCWpOPXwio9g9KWrH5SstkgYf0cWwilmknq5XxwQ8O0hXegZ8BZyE0hr9j+rgSaPLDqZJebV3Acc/HbIDsYHSt36JeJQG7x0iKEoFF0xKwgTS3T26Wy0ocvWVLRX+J+BHxd9vl0RfRKKPDHTtwllDt628vkCMgkatfpLCni3NXOQy7LrgGo6DVjKoL2LmKtyN0G/Zethf/QCUgXsJR2D7BhqJNp/J9nBH5m9cK3AFC3lcwywS3VCQ7vlo7uWzjVRUYdIHNlYniOCSvhPQZSbfWg8qDvJNkS46zz98fHKO48mCXbdb5vSiMIIDfQCfgRDwmfmdma0kA0EeMbL7h8dtBoK7ZZhPJsdj7HwoYNAh7agEGBmPkZbZXvQ3gvNQrY3F3CP6Y2E3mVlG/NlRQ5T5sy7sqzhiZrwzHNq6fISce+06Eih/xGQL5xLk+t7qegolv57PRm2ErAznV1cQl9XfivnlrrNRs/M8WcgJYgnNGsoMx0IvLRet+WqrWXbnPwlChTIpXvwA4N+ZB5fA8dD5IwhjjKTxBQLXPi8E86IJ9Wn6+OQx16+Q2TYlUaGQIm36z2/e8+V0sw=

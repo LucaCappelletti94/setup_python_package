@@ -1,8 +1,9 @@
 from .environment import is_cwd_a_repository, is_travis_installed
 from .utils import load_repository
 from .queries import get_package_name, get_short_description
-from .builders import build_readme, build_gitignore, build_version, build_init
+from .builders import build_readme, build_gitignore, build_version, build_init, build_tests, build_setup, build_travis
 from userinput import userinput
+from .enablers import enable_coveralls
 import traceback
 import os
 
@@ -15,11 +16,10 @@ def start_build():
     build_gitignore()
     build_version(package)
     build_init(package)
-    # build_tests(package)
-    # build_setup(package, description, url, author, email)
-    # build_sonar(package, account, url, version)
-    # build_travis(package, account)
-    # enable_coveralls(account, package)
+    build_tests(package)
+    build_setup(package, short_description)
+    build_travis(package)
+    enable_coveralls()
     build_readme(package, short_description)
 
 

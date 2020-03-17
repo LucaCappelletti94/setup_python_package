@@ -1,7 +1,7 @@
 from .get_default_package_name import get_default_package_name
 from .is_available_python_package_name import is_available_python_package_name
 from .normalize_package_name import normalize_package_name_for_code, normalize_package_name_for_pypi
-from .load_repository import load_repository_author_name, load_repository_author_email, load_repository_name
+from .load_repository import load_repository_author_name, load_repository_author_email, load_repository_name, load_repository_url
 from .get_default_python_version import get_default_python_version
 from .get_default_package_version import get_default_package_version
 from .load_repository import load_repository
@@ -23,6 +23,7 @@ __all__ = [
     "load_repository_author_name",
     "load_repository_author_email",
     "load_repository_name",
+    "load_repository_url",
     "get_default_python_version",
     "get_default_package_version",
     "is_cwd_a_repository",

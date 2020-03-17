@@ -4,7 +4,7 @@ git:
   depth: false
 addons:
   sonarcloud:
-    organization: "{account_lower}-github"
+    organization: "{account}-github"
     token:
       secure: {sonar_travis_code}
 language: python
