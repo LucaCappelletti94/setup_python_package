@@ -32,4 +32,5 @@ def test_setup_python_package(monkeypatch):
     clone_test_repo()
     monkeypatch.setattr('builtins.input', auto_setup_python_package)
     setup_python_package()
+    setup_python_package()
     delete_test_repo()
