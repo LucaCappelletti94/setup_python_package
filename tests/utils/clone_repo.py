@@ -2,6 +2,7 @@ import os
 import shutil
 import stat
 import subprocess
+import platform
 
 url = "https://github.com/LucaCappelletti94/setup_python_package_test_reporitory.git"
 clone_target = "setup_python_package_test_reporitory"
@@ -15,7 +16,7 @@ def clone_test_repo():
             'clone',
             url
         ],
-        shell=True
+        shell=platform.system()=="Windows"
     )
     result.wait()
     os.chdir(clone_target)
