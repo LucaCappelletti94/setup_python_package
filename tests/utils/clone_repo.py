@@ -31,6 +31,6 @@ def delete_test_repo():
             '-fdr',
             clone_target
         ],
-        shell=True
+        shell=platform.system()=="Windows"
     )
     result.wait()
