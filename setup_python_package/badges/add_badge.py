@@ -15,7 +15,7 @@ def load_badges():
 
 
 def validate_badge(badge: str):
-    return badge.startswith(".. image::") and ":target:" in badge
+    return isinstance(badge, str) and badge.startswith(".. image::") and ":target:" in badge
 
 
 def badge_exists(service: str) -> bool:

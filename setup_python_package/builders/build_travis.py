@@ -21,8 +21,9 @@ def build_travis(package: str):
                         get_python_version().split(".")[:2])
                 ))
     if  not badge_exists("code_climate") and userinput(
-        "Do you want to add code climate?",
-        "yes",
+        "add_code_climate",
+        label="Do you want to add code climate?",
+        default="yes",
         validator="human_bool",
         sanitizer="human_bool"
     ):
@@ -30,8 +31,9 @@ def build_travis(package: str):
         get_code_climate_badges()
 
     if not badge_exists("codacy") and userinput(
-        "Do you want to add codacy?",
-        "yes",
+        "add_codacy",
+        label="Do you want to add codacy?",
+        default="yes",
         validator="human_bool",
         sanitizer="human_bool"
     ):

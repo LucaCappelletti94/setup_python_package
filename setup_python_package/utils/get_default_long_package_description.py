@@ -6,7 +6,7 @@ def get_default_long_package_description() -> str:
     """Return long package description if one is detected."""
     try:
         with open("README.md", "r") as f:
-            return pypandoc.convert(
+            return pypandoc.convert_text(
                 source="\n".join(f.readlines()[1:]),
                 to='rst',
                 format='md'

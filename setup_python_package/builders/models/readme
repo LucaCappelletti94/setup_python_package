@@ -3,7 +3,7 @@
 |travis| |sonar_quality| |sonar_maintainability| |codacy|
 |code_climate_maintainability| |pip| |downloads|
 
-{description}
+{short_description}
 
 How do I install this package?
 ----------------------------------------------

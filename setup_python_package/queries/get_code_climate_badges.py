@@ -16,10 +16,12 @@ def get_code_climate_badges():
     add_badge("code_climate", "code_climate_maintainability_url", extract_image_url(userinput(
         "Code climate maintainability badge",
         validator=validate_badge,
-        cache=False
+        cache=False,
+        maximum_attempts=50
     ).strip(".")))
     add_badge("code_climate", "code_climate_coverage_url", extract_image_url(userinput(
         "Code climate coverage badge",
         validator=validate_badge,
-        cache=False
+        cache=False,
+        maximum_attempts=50
     ).strip(".")))

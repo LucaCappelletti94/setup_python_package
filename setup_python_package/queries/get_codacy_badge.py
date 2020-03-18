@@ -15,13 +15,15 @@ def get_codacy_badge():
         ), new=2, autoraise=True)
 
     codacy_badge = userinput(
-        "codacy badge",
+        "codacy",
+        label="Please insert the Codacy Badge (RST format):",
         validator=validate_badge,
-        cache=False
+        cache=False,
+        maximum_attempts=50
     )
 
     add_badge(
         "codacy",
-        "codacy quality",
+        "codacy",
         "\n    ".join(codacy_badge.strip(".").split("    "))
     )

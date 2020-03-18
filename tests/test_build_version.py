@@ -8,5 +8,6 @@ def test_build_version(monkeypatch):
     monkeypatch.setattr('builtins.input', lambda x: "\n")
     package = get_package_name()
     build_version(package)
-    #assert open(f"{package}/__version__.py", "r").read() == open(f"../expected/{package}/__version__.py", "r").read()
-    delete_test_repo() 
+    assert open(f"{package}/__version__.py", "r").read() == open(
+        f"../expected/{package}/__version__.py", "r").read()
+    delete_test_repo()

@@ -6,7 +6,7 @@ from ..enablers import enable_codeclimate
 
 
 def validate_code_climate_code(code: str):
-    return len(code) == 64
+    return isinstance(code, str) and len(code) == 64
 
 
 def get_code_climate_code():
@@ -15,7 +15,12 @@ def get_code_climate_code():
     test_reported_id = userinput(
         "TEST REPORTER ID",
         validator=validate_code_climate_code,
-        cache=False
+        cache=False,
+        maximum_attempts=50
     )
-    subprocess.run(["travis", "encrypt", "CC_TEST_REPORTER_ID={test_reported_id}".format(
-        test_reported_id=test_reported_id), "--add"])
+    subprocess.run([
+        "travis",
+        "encrypt",
+        "CC_TEST_REPORTER_ID={}".format(test_reported_id),
+        "--add"
+    ], shell=True, input="\n", encoding='ascii')
