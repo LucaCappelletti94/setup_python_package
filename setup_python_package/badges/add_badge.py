@@ -1,6 +1,7 @@
 import re
 import os
 import json
+from ..utils import load_configuration
 
 
 def extract_image_url(badge: str) -> str:
@@ -8,7 +9,7 @@ def extract_image_url(badge: str) -> str:
 
 
 def load_badges():
-    with open(".spp_cache/badges.json", "r") as f:
+    with open(load_configuration()["badges"], "r") as f:
         return {
             name: badge for service in json.load(f).values() for name, badge in service.items()
         }
@@ -19,20 +20,20 @@ def validate_badge(badge: str):
 
 
 def badge_exists(service: str) -> bool:
-    if not os.path.exists(".spp_cache/badges.json"):
+    if not os.path.exists(load_configuration()["badges"]):
         return False
-    with open(".spp_cache/badges.json", "r") as f:
+    with open(load_configuration()["badges"], "r") as f:
         return service in json.load(f)
 
 
 def add_badge(service: str, badge_name: str, badge: str):
-    if os.path.exists(".spp_cache/badges.json"):
-        with open(".spp_cache/badges.json", "r") as f:
+    if os.path.exists(load_configuration()["badges"]):
+        with open(load_configuration()["badges"], "r") as f:
             badges = json.load(f)
     else:
         badges = {}
     service_data = badges.get(service, {})
     service_data[badge_name] = badge.strip()
     badges[service] = service_data
-    with open(".spp_cache/badges.json", "w") as f:
+    with open(load_configuration()["badges"], "w") as f:
         json.dump(badges, f)
