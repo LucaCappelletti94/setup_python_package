@@ -61,6 +61,7 @@ setup(
         "pathlib",
         "pypandoc",
         "userinput",
+        "environments_utils"
     ],
     entry_points={
         'console_scripts': [
