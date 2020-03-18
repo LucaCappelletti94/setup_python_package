@@ -16,7 +16,7 @@ def build_travis(package: str, automatically_open_browser: bool):
                 sink.write(source.read().format(
                     package=package,
                     account=load_repository_author_name().lower(),
-                    sonar_travis_code=get_sonar_code(),
+                    sonar_travis_code=get_sonar_code(automatically_open_browser),
                     python_version=".".join(
                         get_python_version().split(".")[:2])
                 ))
