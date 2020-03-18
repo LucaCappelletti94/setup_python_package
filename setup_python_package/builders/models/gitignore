@@ -1,8 +1,6 @@
 .vscode/
 .DS_Store
 __pycache__
-*/__pycache__/*
-**/__pycache__/*
 __pycache__
 .notipy.json
 .single_run

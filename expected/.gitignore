@@ -1,0 +1,9 @@
+*.egg-info
+.DS_Store
+.coverage*
+.notipy.json
+.single_run
+.vscode/
+__pycache__
+coverage.xml
+test.txt

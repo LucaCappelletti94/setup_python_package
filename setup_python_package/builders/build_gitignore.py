@@ -10,4 +10,4 @@ def build_gitignore():
         with open(path, "r") as d:
             lines = set(lines+d.readlines())
     with open(path, "w") as f:
-        f.write("\n".join(lines))
+        f.write("".join(sorted(lines)))
