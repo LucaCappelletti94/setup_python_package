@@ -1,22 +1,25 @@
 from .environment import is_cwd_a_repository, is_travis_installed
 from .utils import load_repository
-from .queries import get_package_name, get_short_description
-from .builders import build_readme, build_gitignore, build_version, build_init, build_tests, build_setup, build_travis
+from .queries import get_package_name, get_short_description, get_package_version
+from .builders import build_readme, build_gitignore, build_version, build_init, build_tests, build_setup, build_travis, build_sonar
 from userinput import userinput
 from .enablers import enable_coveralls
 import traceback
 import os
 
 
+
 def start_build():
     os.makedirs(".spp_cache", exist_ok=True)
     package = get_package_name()
+    version = get_package_version()
     short_description = get_short_description()
     build_gitignore()
-    build_version(package)
+    build_version(package, version)
     build_init(package)
     build_tests(package)
     build_setup(package, short_description)
+    build_sonar(package, version)
     build_travis(package)
     enable_coveralls()
     build_readme(package, short_description)

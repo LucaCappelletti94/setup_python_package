@@ -3,6 +3,7 @@ import webbrowser
 from userinput import userinput
 import subprocess
 from ..enablers import enable_codeclimate
+import os
 
 
 def validate_code_climate_code(code: str):
@@ -23,4 +24,4 @@ def get_code_climate_code():
         "encrypt",
         "CC_TEST_REPORTER_ID={}".format(test_reported_id),
         "--add"
-    ], shell=True, input="\n", encoding='ascii')
+    ], shell=True, input="\n", stdout=open(os.devnull, 'w'), encoding='ascii')

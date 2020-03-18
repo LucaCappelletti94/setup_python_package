@@ -3,6 +3,7 @@ import webbrowser
 from userinput import userinput
 import subprocess
 from ..enablers import enable_codacy
+import os
 
 
 def validate_codacy_code(code: str):
@@ -26,9 +27,10 @@ def get_codacy_code():
         cache=False,
         maximum_attempts=50
     )
+
     subprocess.run([
         "travis",
         "encrypt",
         "CODACY_PROJECT_TOKEN={}".format(test_reported_id),
         "--add"
-    ], shell=True, input="\n", encoding='ascii')
+    ], shell=True, input="\n", stdout=open(os.devnull, 'w'), encoding='ascii')
