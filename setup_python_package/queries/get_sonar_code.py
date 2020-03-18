@@ -17,12 +17,16 @@ def get_sonar_code():
         validator=validate_sonar_key,
         cache=False
     )
-    result = subprocess.run(
+    result = subprocess.Popen(
         [
             'travis',
             'encrypt',
             sonar_key
         ],
-        stdout=PIPE
+        stdout=PIPE,
+        shell=True
     )
-    return result.stdout.decode("utf-8").strip().strip('"')
+    result.wait()
+    out, _ = result.communicate()
+    result.stdout.close()
+    return out.decode("utf-8").strip().strip('"')
