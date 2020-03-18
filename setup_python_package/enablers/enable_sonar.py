@@ -1,6 +1,5 @@
 from ..utils import sonar_project_exists
 import webbrowser
-from environments_utils import is_stdout_enabled
 
 
 def enable_sonar(automatically_open_browser: bool):
