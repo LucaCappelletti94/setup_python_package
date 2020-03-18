@@ -17,5 +17,5 @@ def url_exists(url: str, max_redirect: int = 1) -> bool:
     session.max_redirects = max_redirect
     try:
         return session.get(url).status_code == 200
-    except requests.TooManyRedirects:
+    except (requests.TooManyRedirects, requests.exceptions.ConnectionError):
         return False
