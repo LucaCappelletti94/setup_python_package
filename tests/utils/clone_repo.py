@@ -16,7 +16,7 @@ def clone_test_repo():
             'clone',
             url
         ],
-        shell=platform.system()=="Windows"
+        shell=platform.system() == "Windows"
     )
     result.wait()
     os.chdir(clone_target)
@@ -31,6 +31,6 @@ def delete_test_repo():
             '-fdr',
             clone_target
         ],
-        shell=platform.system()=="Windows"
+        shell=platform.system() == "Windows"
     )
     result.wait()

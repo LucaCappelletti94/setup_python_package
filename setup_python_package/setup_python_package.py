@@ -11,7 +11,6 @@ import os
 def start_build():
     os.makedirs(".spp_cache", exist_ok=True)
     package = get_package_name()
-    os.makedirs(package, exist_ok=True)
     short_description = get_short_description()
     build_gitignore()
     build_version(package)
