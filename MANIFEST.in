@@ -1,1 +1,2 @@
-include setup_python_package/models/*
+include setup_python_package/builders/models/*
+include setup_python_package/utils/config.json

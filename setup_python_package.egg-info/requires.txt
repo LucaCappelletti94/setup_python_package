@@ -1,12 +1,11 @@
 gitpython
 requests
-validate_email
 validate_version_code
 pathlib
-validators
+pypandoc
+userinput
 
 [test]
 pytest
 pytest-cov
 coveralls
-validate_version_code
