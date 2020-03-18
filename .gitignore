@@ -7,15 +7,9 @@ coverage.xml
 .coverage*
 
 .notipy.json
-
 .DS_Store
-
-**/__pycache__/*
-
+__pycache__
 .single_run
-
-*/__pycache__/*
-
 *.egg-info
 
 .userinput.json
