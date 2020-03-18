@@ -1,15 +1,9 @@
-.vscode/
 
-__pycache__
-
-coverage.xml
-
-.coverage*
-
-.notipy.json
-.DS_Store
-__pycache__
-.single_run
 *.egg-info
-
-.userinput.json
+.DS_Store
+.coverage*
+.notipy.json
+.single_run
+.userinput.json.vscode/
+__pycache__
+coverage.xml
