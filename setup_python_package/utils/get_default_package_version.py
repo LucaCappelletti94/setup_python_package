@@ -1,6 +1,5 @@
-from glob import glob
-import os
 from validate_version_code import extract_version_code
+
 
 def get_default_package_version():
     try:

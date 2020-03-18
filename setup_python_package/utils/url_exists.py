@@ -3,12 +3,12 @@ import requests
 
 def url_exists(url: str, max_redirect: int = 1) -> bool:
     """Return boolean representing if given url is reacheable.
-    
+
     Parameters
     ----------------------------
     url:str,
         The url to check for.
-    
+
     Returns
     ----------------------------
     Boolean representing if given url is reacheable.

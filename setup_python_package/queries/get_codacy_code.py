@@ -1,4 +1,4 @@
-from ..utils import sonar_project_exists, load_repository_name, load_repository_author_name
+from ..utils import load_repository_name, load_repository_author_name
 import webbrowser
 from userinput import userinput
 import subprocess

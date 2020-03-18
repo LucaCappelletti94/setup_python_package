@@ -1,15 +1,14 @@
-from ..utils import sonar_project_exists
-import webbrowser
 from userinput import userinput
 import subprocess
 from ..enablers import enable_sonar
 from subprocess import PIPE
 
+
 def validate_sonar_key(key: str) -> bool:
     return len(key) == 40
 
 
-def get_sonar_code(automatically_open_browser:bool):
+def get_sonar_code(automatically_open_browser: bool):
     enable_sonar(automatically_open_browser)
     print("Just copy the project key and paste it here.")
     sonar_key = userinput(

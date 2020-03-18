@@ -1,5 +1,3 @@
-from ..utils import sonar_project_exists
-import webbrowser
 from userinput import userinput
 import subprocess
 from ..enablers import enable_codeclimate

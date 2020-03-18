@@ -26,7 +26,6 @@ __all__ = [
     "load_repository_url",
     "get_default_python_version",
     "get_default_package_version",
-    "is_cwd_a_repository",
     "get_default_short_package_description",
     "get_default_long_package_description",
     "load_configuration",
