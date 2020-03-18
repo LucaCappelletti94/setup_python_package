@@ -10,8 +10,8 @@ def validate_codacy_code(code: str):
     return len(code) == 32
 
 
-def get_codacy_code():
-    enable_codacy()
+def get_codacy_code(automatically_open_browser: bool):
+    enable_codacy(automatically_open_browser)
     input("Press any key to go to the codacy project settings now to get the project token.")
     webbrowser.open(
         "https://app.codacy.com/app/{account}/{repository}/settings/integrations".format(

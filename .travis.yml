@@ -23,7 +23,7 @@ script:
   - cd tmp_repo
   - git clone https://github.com/LucaCappelletti94/setup_python_package
   - cd setup_python_package
-  - pytest --cov=setup_python_package --cov-report xml:coverage.xml
+  - pytest -s --cov=setup_python_package --cov-report xml:coverage.xml
   - coverage combine --append || true
   - coverage report
   - coverage xml

@@ -10,8 +10,8 @@ def validate_code_climate_code(code: str):
     return isinstance(code, str) and len(code) == 64
 
 
-def get_code_climate_code():
-    enable_codeclimate()
+def get_code_climate_code(automatically_open_browser: bool):
+    enable_codeclimate(automatically_open_browser)
     print("Just go to repo settings/test_coverage and copy here the TEST REPORTER ID.")
     test_reported_id = userinput(
         "TEST REPORTER ID",

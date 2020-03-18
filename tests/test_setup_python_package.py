@@ -3,6 +3,8 @@ from .utils import clone_test_repo, delete_test_repo
 
 
 def auto_setup_python_package(label):
+    if label.startswith("Do you want me to open the browser automatically?"):
+        return "no"
     if label.startswith("Please insert sonar project key:"):
         return "1111111111111111111111111111111111111111"
     if label.startswith("Please insert TEST REPORTER ID:"):

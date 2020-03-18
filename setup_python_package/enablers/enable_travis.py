@@ -1,11 +1,11 @@
 from ..utils import travis_project_exists
 import webbrowser
-from environments_utils import is_stdout_enabled
 
-def enable_travis():
+
+def enable_travis(automatically_open_browser: bool):
     if not travis_project_exists():
         print("You still need to create the travis project.")
-        if is_stdout_enabled():
+        if automatically_open_browser:
             input("Press any key to go to travis now.")
             webbrowser.open(
                 "https://travis-ci.org/account/repositories", new=2, autoraise=True)

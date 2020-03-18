@@ -60,8 +60,7 @@ setup(
         "validate_version_code",
         "pathlib",
         "pypandoc",
-        "userinput",
-        "environments_utils"
+        "userinput"
     ],
     entry_points={
         'console_scripts': [

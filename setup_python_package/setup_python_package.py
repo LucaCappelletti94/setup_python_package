@@ -13,6 +13,13 @@ def start_build():
     os.makedirs(".spp_cache", exist_ok=True)
     package = get_package_name()
     version = get_package_version()
+    automatically_open_browser = userinput(
+        "open_browser",
+        label="Do you want me to open the browser automatically?",
+        default="yes",
+        validator="human_bool",
+        sanitizer="human_bool"
+    )
     short_description = get_short_description()
     build_gitignore()
     build_version(package, version)
@@ -20,8 +27,8 @@ def start_build():
     build_tests(package)
     build_setup(package, short_description)
     build_sonar(package, version)
-    build_travis(package)
-    enable_coveralls()
+    build_travis(package, automatically_open_browser)
+    enable_coveralls(automatically_open_browser)
     build_readme(package, short_description)
 
 

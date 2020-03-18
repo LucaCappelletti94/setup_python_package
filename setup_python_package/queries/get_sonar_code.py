@@ -9,8 +9,8 @@ def validate_sonar_key(key: str) -> bool:
     return len(key) == 40
 
 
-def get_sonar_code():
-    enable_sonar()
+def get_sonar_code(automatically_open_browser:bool):
+    enable_sonar(automatically_open_browser)
     print("Just copy the project key and paste it here.")
     sonar_key = userinput(
         "sonar project key",
