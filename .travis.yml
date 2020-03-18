@@ -18,14 +18,12 @@ before_script:
 after_script:
   - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 script:
-  - rm -rf .coverage
-  - coverage erase
   - cd ..
   - mkdir tmp_repo
   - cd tmp_repo
   - git clone https://github.com/LucaCappelletti94/setup_python_package
   - cd setup_python_package
-  - pytest -s --cov=setup_python_package --cov-report xml:coverage.xml
+  - pytest --cov=setup_python_package --cov-report xml:coverage.xml
   - coverage combine --append || true
   - coverage report
   - coverage xml

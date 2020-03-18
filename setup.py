@@ -62,7 +62,8 @@ setup(
         "pathlib",
         "validators",
         "pypandoc",
-        "userinput"
+        "userinput",
+        "is_stdout_enabled"
     ],
     entry_points={
         'console_scripts': [
