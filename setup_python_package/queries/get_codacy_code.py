@@ -12,15 +12,16 @@ def validate_codacy_code(code: str):
 
 def get_codacy_code(automatically_open_browser: bool):
     enable_codacy(automatically_open_browser)
-    input("Press any key to go to the codacy project settings now to get the project token.")
-    webbrowser.open(
-        "https://app.codacy.com/app/{account}/{repository}/settings/integrations".format(
-            account=load_repository_author_name(),
-            repository=load_repository_name()
-        ),
-        new=2,
-        autoraise=True
-    )
+    if automatically_open_browser:
+        input("Press any key to go to the codacy project settings now to get the project token.")
+        webbrowser.open(
+            "https://app.codacy.com/app/{account}/{repository}/settings/integrations".format(
+                account=load_repository_author_name(),
+                repository=load_repository_name()
+            ),
+            new=2,
+            autoraise=True
+        )
     test_reported_id = userinput(
         "CODACY PROJECT TOKEN",
         validator=validate_codacy_code,

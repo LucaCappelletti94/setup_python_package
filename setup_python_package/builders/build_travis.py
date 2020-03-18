@@ -28,7 +28,7 @@ def build_travis(package: str, automatically_open_browser: bool):
         sanitizer="human_bool"
     ):
         get_code_climate_code(automatically_open_browser)
-        get_code_climate_badges()
+        get_code_climate_badges(automatically_open_browser)
 
     if not badge_exists("codacy") and userinput(
         "add_codacy",
@@ -38,4 +38,4 @@ def build_travis(package: str, automatically_open_browser: bool):
         sanitizer="human_bool"
     ):
         get_codacy_code(automatically_open_browser)
-        get_codacy_badge()
+        get_codacy_badge(automatically_open_browser)

@@ -4,9 +4,7 @@ import os
 
 
 def auto_setup_python_package(label):
-    open("../log.txt", "a").write(label+"\n")
     if label.startswith("Do you want me to open the browser automatically?"):
-        open("../log.txt", "a").write("NOT OPENING BROWSER!\n")
         return "no"
     if label.startswith("Please insert sonar project key:"):
         return "1111111111111111111111111111111111111111"
@@ -32,7 +30,6 @@ def auto_setup_python_package(label):
 def test_setup_python_package(monkeypatch):
     clone_test_repo()
     monkeypatch.setattr('builtins.input', auto_setup_python_package)
-    open("../log.txt", "w").write("")
     setup_python_package()
     os.remove("setup.py")
     setup_python_package()
