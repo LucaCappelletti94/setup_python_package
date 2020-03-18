@@ -14,7 +14,8 @@ def get_code_climate_code():
     print("Just go to repo settings/test_coverage and copy here the TEST REPORTER ID.")
     test_reported_id = userinput(
         "TEST REPORTER ID",
-        validator=validate_code_climate_code
+        validator=validate_code_climate_code,
+        cache=False
     )
     subprocess.run(["travis", "encrypt", "CC_TEST_REPORTER_ID={test_reported_id}".format(
         test_reported_id=test_reported_id), "--add"])

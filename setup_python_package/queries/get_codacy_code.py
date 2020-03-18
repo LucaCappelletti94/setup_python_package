@@ -22,7 +22,8 @@ def get_codacy_code():
     )
     test_reported_id = userinput(
         "CODACY_PROJECT_TOKEN",
-        validator=validate_codacy_code
+        validator=validate_codacy_code,
+        cache=False
     )
     subprocess.run(["travis", "encrypt", "CODACY_PROJECT_TOKEN={test_reported_id}".format(
         test_reported_id=test_reported_id), "--add"])

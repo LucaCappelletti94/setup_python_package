@@ -14,7 +14,8 @@ def get_sonar_code():
     print("Just copy the project key and paste it here.")
     sonar_key = userinput(
         "sonar project key",
-        validator=validate_sonar_key
+        validator=validate_sonar_key,
+        cache=False
     )
     result = subprocess.run(
         [

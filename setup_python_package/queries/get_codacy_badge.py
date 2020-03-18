@@ -16,7 +16,8 @@ def get_codacy_badge():
 
     codacy_badge = userinput(
         "codacy badge",
-        validator=validate_badge
+        validator=validate_badge,
+        cache=False
     )
 
     add_badge(
