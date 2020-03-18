@@ -18,7 +18,8 @@ def start_build():
         label="Do you want me to open the browser automatically?",
         default="yes",
         validator="human_bool",
-        sanitizer="human_bool"
+        sanitizer="human_bool",
+        cache=False
     )
     short_description = get_short_description()
     build_gitignore()
