@@ -5,3 +5,4 @@
 .single_run
 .userinput.json.vscode/
 __pycache__
+log.txt
