@@ -1,9 +1,12 @@
 from setup_python_package import setup_python_package
 from .utils import clone_test_repo, delete_test_repo
+import os
 
 
 def auto_setup_python_package(label):
+    open("../log.txt", "a").write(label+"\n")
     if label.startswith("Do you want me to open the browser automatically?"):
+        open("../log.txt", "a").write("NOT OPENING BROWSER!\n")
         return "no"
     if label.startswith("Please insert sonar project key:"):
         return "1111111111111111111111111111111111111111"
@@ -23,14 +26,15 @@ def auto_setup_python_package(label):
         return "d27d57c757a945bcb7ed975fd3d47a4e"
     if label.startswith("Please insert the Codacy Badge (RST format):"):
         return ".. image:: https://api.codacy.com/project/badge/Grade/b78d67845fe24f81919d95686ffb5bf8    :target: https://www.codacy.com/manual/LucaCappelletti94/keras_validation_sets?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=LucaCappelletti94/keras_validation_sets&amp;utm_campaign=Badge_Grade"
-    open("../log.txt", "a").write(label+"\n")
     return "\n"
 
 
 def test_setup_python_package(monkeypatch):
-    open("../log.txt", "w").write("")
     clone_test_repo()
     monkeypatch.setattr('builtins.input', auto_setup_python_package)
+    open("../log.txt", "w").write("")
+    setup_python_package()
+    os.remove("setup.py")
     setup_python_package()
     setup_python_package()
     delete_test_repo()

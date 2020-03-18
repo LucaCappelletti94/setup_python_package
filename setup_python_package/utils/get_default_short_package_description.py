@@ -6,7 +6,7 @@ def get_default_short_package_description() -> str:
     try:
         with open("setup.py", "r") as f:
             return re.compile(
-                r"""[(\s,]+description\s*=\s*["']([\s\S]*?)["']""").findall(f.read())[0]
+                r"""[(\s,]+description\s*=\s*["']([\s\S]*?)["']""").findall(f.read())[0].strip()
     except Exception:
         pass
     try:
@@ -17,7 +17,7 @@ def get_default_short_package_description() -> str:
     try:
         with open("README.rst", "r") as f:
             return re.compile(
-                r"\|\n\n([\s\S]+)\nHow do I install this package").findall(f.read())[0]
+                r"\|\n\n([\s\S]+)\nHow do I install this package").findall(f.read())[0].strip()
     except Exception:
         pass
     return None
