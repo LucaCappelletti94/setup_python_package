@@ -30,7 +30,7 @@ def find_version(*file_paths):
 
 __version__ = find_version("setup_python_package", "__version__.py")
 
-test_deps = ['pytest', 'pytest-cov', 'coveralls', 'validate_version_code']
+test_deps = ['pytest', 'pytest-cov', 'coveralls']
 
 extras = {
     'test': test_deps,
@@ -57,13 +57,10 @@ setup(
     install_requires=[
         "gitpython",
         "requests",
-        "validate_email",
         "validate_version_code",
         "pathlib",
-        "validators",
         "pypandoc",
         "userinput",
-        "environments_utils"
     ],
     entry_points={
         'console_scripts': [
