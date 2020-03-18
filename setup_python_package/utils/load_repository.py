@@ -1,15 +1,10 @@
 import os
 from git import Repo
 
-repository = None
-
 
 def load_repository():
     """Return current repository object."""
-    global repository
-    if repository is None:
-        repository = Repo(os.getcwd())
-    return repository
+    return Repo(os.getcwd())
 
 
 def load_repository_url() -> str:

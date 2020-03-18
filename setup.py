@@ -63,7 +63,7 @@ setup(
         "validators",
         "pypandoc",
         "userinput",
-        "is_stdout_enabled"
+        "environments_utils"
     ],
     entry_points={
         'console_scripts': [
