@@ -15,7 +15,8 @@ def get_sonar_code(automatically_open_browser:bool):
     sonar_key = userinput(
         "sonar project key",
         validator=validate_sonar_key,
-        cache=False
+        cache=False,
+        maximum_attempts=50
     )
     result = subprocess.Popen(
         [

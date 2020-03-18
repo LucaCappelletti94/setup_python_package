@@ -11,5 +11,6 @@ def get_package_name() -> str:
         validator=is_available_python_package_name,
         sanitizer=normalize_package_name_for_code,
         auto_clear=True,
-        cache=False
+        cache=False,
+        maximum_attempts=50
     )

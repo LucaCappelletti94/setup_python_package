@@ -12,5 +12,6 @@ def get_long_description() -> str:
             "strip"
         ],
         auto_clear=True,
-        cache=False
+        cache=False,
+        maximum_attempts=50
     )

@@ -10,5 +10,6 @@ def get_package_version() -> str:
         default=get_default_package_version(),
         validator="version_code",
         auto_clear=True,
-        cache=False
+        cache=False,
+        maximum_attempts=50
     )
