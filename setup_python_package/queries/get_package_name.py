@@ -10,7 +10,6 @@ def get_package_name() -> str:
         default=get_default_package_name(),
         validator=is_available_python_package_name,
         sanitizer=normalize_package_name_for_code,
-        auto_clear=True,
         cache=False,
         maximum_attempts=50
     )

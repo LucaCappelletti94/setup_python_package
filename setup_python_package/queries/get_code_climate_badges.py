@@ -18,11 +18,13 @@ def get_code_climate_badges(automatically_open_browser: bool):
         "Code climate maintainability badge",
         validator=validate_badge,
         cache=False,
-        maximum_attempts=50
+        maximum_attempts=50,
+        multi_line=True
     ).strip(".")))
     add_badge("code_climate", "code_climate_coverage_url", extract_image_url(userinput(
         "Code climate coverage badge",
         validator=validate_badge,
         cache=False,
-        maximum_attempts=50
+        maximum_attempts=50,
+        multi_line=True
     ).strip(".")))
