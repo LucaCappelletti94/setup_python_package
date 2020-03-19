@@ -24,7 +24,8 @@ def build_travis(package: str, automatically_open_browser: bool):
         label="Do you want to add code climate?",
         default="yes",
         validator="human_bool",
-        sanitizer="human_bool"
+        sanitizer="human_bool",
+        cache=False
     ):
         get_code_climate_code(automatically_open_browser)
         get_code_climate_badges(automatically_open_browser)
@@ -34,7 +35,8 @@ def build_travis(package: str, automatically_open_browser: bool):
         label="Do you want to add codacy?",
         default="yes",
         validator="human_bool",
-        sanitizer="human_bool"
+        sanitizer="human_bool",
+        cache=False
     ):
         get_codacy_code(automatically_open_browser)
         get_codacy_badge(automatically_open_browser)
