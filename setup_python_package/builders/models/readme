@@ -47,7 +47,7 @@ get slightly different results, here's three of them:
     :alt: Pypi project
 
 .. |downloads| image:: https://pepy.tech/badge/{pypi_package}
-    :target: https://pepy.tech/badge/{pypi_package}
+    :target: https://pepy.tech/project/{pypi_package}
     :alt: Pypi total project downloads
 
 .. |codacy| {codacy}
