@@ -6,7 +6,7 @@ def get_package_version() -> str:
     """Return the package version to be used."""
     return userinput(
         name="_version",
-        label="Enter the python version to use.",
+        label="Enter the package version to use",
         default=get_default_package_version(),
         validator="version_code",
         cache=False,
