@@ -1,14 +1,8 @@
 from setup_python_package import setup_python_package
 from .utils import clone_test_repo, delete_test_repo
-from userinput.test import simulate_multiline
 import os
+from httmock import urlmatch, HTTMock
 
-
-maintainability = ".. image:: https://api.codeclimate.com/v1/badges/c79ec561e2fd2b91763c/maintainability\n   :target: https://codeclimate.com/github/LucaCappelletti94/compress_json/maintainability\n   :alt: Maintainability"
-coverage = ".. image:: https://api.codeclimate.com/v1/badges/c79ec561e2fd2b91763c/test_coverage\n   :target: https://codeclimate.com/github/LucaCappelletti94/compress_json/test_coverage\n   :alt: Test Coverage"
-
-code_climate_maintainability = simulate_multiline(maintainability)
-code_climate_coverage = simulate_multiline(coverage)
 
 def auto_setup_python_package(label):
     if label.startswith("Do you want me to open the browser automatically?"):
@@ -17,10 +11,6 @@ def auto_setup_python_package(label):
         return "1111111111111111111111111111111111111111"
     if label.startswith("Please insert TEST REPORTER ID:"):
         return "c60e9f5957ec3318705c245a486a38258b4f52d63f090160dbbbd4043d265595"
-    if label.startswith("Please insert Code climate maintainability badge"):
-        return code_climate_maintainability()
-    if label.startswith("Please insert Code climate coverage badge:"):
-        return code_climate_coverage()
     if label.startswith("Please insert CODACY PROJECT TOKEN:"):
         return "d27d57c757a945bcb7ed975fd3d47a4e"
     if label.startswith("Please insert the Codacy Badge (RST format):"):
@@ -28,11 +18,21 @@ def auto_setup_python_package(label):
     return "\n"
 
 
+@urlmatch(path="/github/LucaCappelletti94/setup_python_package_test_reporitory/badges")
+def mock_code_climate(url, request):
+    with open("{}/mocked_code_climate.html".format(os.path.dirname(os.path.abspath(__file__))), "r") as f:
+        return {
+            'status_code': 200,
+            'content': f.read()
+        }
+
+
 def test_setup_python_package(monkeypatch):
     clone_test_repo()
     monkeypatch.setattr('builtins.input', auto_setup_python_package)
-    setup_python_package()
-    os.remove("setup.py")
-    setup_python_package()
-    setup_python_package()
+    with HTTMock(mock_code_climate):
+        setup_python_package()
+        os.remove("setup.py")
+        setup_python_package()
+        setup_python_package()
     delete_test_repo()

@@ -30,7 +30,7 @@ def find_version(*file_paths):
 
 __version__ = find_version("setup_python_package", "__version__.py")
 
-test_deps = ['pytest', 'pytest-cov', 'coveralls']
+test_deps = ['pytest', 'pytest-cov', 'coveralls', 'httmock']
 
 extras = {
     'test': test_deps,

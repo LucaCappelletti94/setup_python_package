@@ -50,7 +50,8 @@ def setup_python_package():
         repo.git.add("--all")
         repo.index.commit("[SPP] Completed setup and CI integration.")
     except (Exception, KeyboardInterrupt) as e:
-        traceback.print_exc()
-        print(e)
-        print("Something went wrong!")
         repo.git.reset()
+        if not isinstance(e, KeyboardInterrupt):
+            raise e
+        else:
+            print("User interrupted procedure.")

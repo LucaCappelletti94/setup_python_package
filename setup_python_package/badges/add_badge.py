@@ -15,9 +15,10 @@ def load_badges():
         }
 
 
-def validate_badge(badge: str):
-    return isinstance(badge, str) and badge.startswith(".. image::") and ":target:" in badge
-
+def validate_badge_generator(target:str):
+    def validate_badge(badge: str):
+        return isinstance(badge, str) and badge.startswith(".. image::") and ":target:" in badge and target in badge
+    return validate_badge
 
 def badge_exists(service: str) -> bool:
     if not os.path.exists(load_configuration()["badges"]):

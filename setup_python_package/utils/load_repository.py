@@ -22,6 +22,11 @@ def load_repository_author_name() -> str:
     return load_repository().head.reference.commit.author.name
 
 
+def load_repository_organization() -> str:
+    """Return repository author name."""
+    return load_repository_url().rsplit("/", 3)[-2]
+
+
 def load_repository_author_email() -> str:
     """Return repository author email."""
     return load_repository().head.reference.commit.author.email

@@ -1,7 +1,7 @@
 from ..utils import load_repository_name, load_repository_author_name
 import webbrowser
 from userinput import userinput
-from ..badges import add_badge, validate_badge
+from ..badges import add_badge, validate_badge_generator
 
 
 def get_codacy_badge(automatically_open_browser: bool):
@@ -18,7 +18,7 @@ def get_codacy_badge(automatically_open_browser: bool):
     codacy_badge = userinput(
         "codacy",
         label="Please insert the Codacy Badge (RST format):",
-        validator=validate_badge,
+        validator=validate_badge_generator("Badge_Grade"),
         cache=False,
         maximum_attempts=50
     )
