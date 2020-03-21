@@ -11,6 +11,5 @@ def get_long_description() -> str:
         sanitizer=[
             "strip"
         ],
-        auto_clear=True,
         cache=False
     )

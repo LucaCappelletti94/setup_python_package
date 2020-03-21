@@ -9,6 +9,5 @@ def get_python_version() -> str:
         label="Enter the python version to use.",
         default=get_default_python_version(),
         validator="version_code",
-        auto_clear=True,
         cache=False
     )

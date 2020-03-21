@@ -12,6 +12,5 @@ def get_package_author_name() -> str:
         sanitizer=[
             "strip"
         ],
-        auto_clear=True,
         cache=False
     )

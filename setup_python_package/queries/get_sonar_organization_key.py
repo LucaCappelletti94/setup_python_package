@@ -8,6 +8,5 @@ def get_sonar_organization_key() -> str:
         label="Enter a SonarCloud organization key.",
         default=get_default_sonar_organization_key(),
         validator="non_empty",
-        auto_clear=True,
         cache=False
     )

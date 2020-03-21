@@ -8,6 +8,5 @@ def get_sonar_project_key() -> str:
         label="Enter a SonarCloud project key.",
         default=get_default_sonar_project_key(),
         validator="non_empty",
-        auto_clear=True,
         cache=False
     )

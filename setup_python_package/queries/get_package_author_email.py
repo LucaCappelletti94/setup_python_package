@@ -9,6 +9,5 @@ def get_package_author_email() -> str:
         label="Enter the python package author email to use.",
         default=load_repository_author_email(),
         validator="email",
-        auto_clear=True,
         cache=False
     )
