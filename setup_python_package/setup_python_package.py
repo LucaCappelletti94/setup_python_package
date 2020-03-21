@@ -59,6 +59,7 @@ def setup_python_package():
         repo.git.add("--all")
         repo.index.commit("[SPP] Completed setup and CI integration.")
     except (Exception, KeyboardInterrupt) as e:
+        repo.git.clean('-xdf')
         repo.git.reset()
         if not isinstance(e, KeyboardInterrupt):
             raise e
