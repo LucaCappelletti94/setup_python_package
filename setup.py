@@ -57,10 +57,10 @@ setup(
     install_requires=[
         "gitpython",
         "requests",
-        "validate_version_code",
+        "validate_version_code>=1.0.4",
         "pathlib",
         "pypandoc",
-        "userinput"
+        "userinput>=1.0.11"
     ],
     entry_points={
         'console_scripts': [
