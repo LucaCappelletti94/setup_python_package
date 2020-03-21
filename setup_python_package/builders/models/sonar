@@ -2,16 +2,16 @@
 #   Meta-data for the project
 # =====================================================
 sonar.projectName={package}
-sonar.projectKey={account}_{package}
+sonar.projectKey={project_key}
 sonar.projectVersion={version}
-sonar.organization={account_lower}-github
+sonar.organization={organization_key}
 sonar.host.url=https://sonarcloud.io
 sonar.login={package}
 
-sonar.links.homepage={url}
-sonar.links.ci=https://travis-ci.org/{account}/{package}
-sonar.links.scm={url}
-sonar.links.issue={url}/issues
+sonar.links.homepage={repository_url}
+sonar.links.ci=https://travis-ci.org/{organization}/{package}
+sonar.links.scm={repository_url}
+sonar.links.issue={repository_url}/issues
 
 sonar.language=py
 

@@ -7,7 +7,7 @@ from ..badges import badge_exists
 from ..enablers import enable_travis
 
 
-def build_travis(package: str, automatically_open_browser: bool):
+def build_travis(package: str, automatically_open_browser: bool, project_key:str):
     enable_travis(automatically_open_browser)
     if not os.path.exists(".travis.yml"):
         with open("{}/models/travis".format(os.path.dirname(os.path.abspath(__file__))), "r") as source:
@@ -15,7 +15,7 @@ def build_travis(package: str, automatically_open_browser: bool):
                 sink.write(source.read().format(
                     package=package,
                     account=load_repository_author_name().lower(),
-                    sonar_travis_code=get_sonar_code(automatically_open_browser),
+                    sonar_travis_code=get_sonar_code(automatically_open_browser, project_key),
                     python_version=".".join(
                         get_python_version().split(".")[:2])
                 ))

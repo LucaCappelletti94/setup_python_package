@@ -13,6 +13,8 @@ from .codacy_project_exists import codacy_project_exists
 from .codeclimate_project_exists import codeclimate_project_exists
 from .travis_project_exists import travis_project_exists
 from .sonar_project_exists import sonar_project_exists
+from .get_default_sonar_organization_key import get_default_sonar_organization_key
+from .get_default_sonar_project_key import get_default_sonar_project_key
 
 __all__ = [
     "get_default_package_name",
@@ -29,6 +31,8 @@ __all__ = [
     "get_default_package_version",
     "get_default_short_package_description",
     "get_default_long_package_description",
+    "get_default_sonar_organization_key",
+    "get_default_sonar_project_key",
     "load_configuration",
     "coveralls_project_exists",
     "codacy_project_exists",

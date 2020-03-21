@@ -1,6 +1,6 @@
 from .environment import is_cwd_a_repository, is_travis_installed
 from .utils import load_repository
-from .queries import get_package_name, get_short_description, get_package_version
+from .queries import get_package_name, get_short_description, get_package_version, get_sonar_organization_key, get_sonar_project_key
 from .builders import build_readme, build_gitignore, build_version, build_init, build_tests, build_setup, build_travis, build_sonar
 from userinput import userinput
 from .enablers import enable_coveralls
@@ -27,10 +27,19 @@ def start_build():
     build_init(package)
     build_tests(package)
     build_setup(package, short_description)
-    build_sonar(package, version)
-    build_travis(package, automatically_open_browser)
+
+    organization_key = get_sonar_organization_key()
+    project_key = get_sonar_project_key()
+
+    build_sonar(
+        package=package,
+        version=version,
+        organization_key=organization_key,
+        project_key=project_key
+    )
+    build_travis(package, automatically_open_browser, project_key)
     enable_coveralls(automatically_open_browser)
-    build_readme(package, short_description)
+    build_readme(package, short_description, project_key)
 
 
 

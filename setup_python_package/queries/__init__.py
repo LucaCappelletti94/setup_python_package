@@ -10,6 +10,8 @@ from .get_codacy_badge import get_codacy_badge
 from .get_codacy_code import get_codacy_code
 from .get_code_climate_badges import get_code_climate_badges
 from .get_code_climate_code import get_code_climate_code
+from .get_sonar_organization_key import get_sonar_organization_key
+from .get_sonar_project_key import get_sonar_project_key
 
 __all__ = [
     "get_package_name",
