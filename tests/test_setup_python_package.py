@@ -37,7 +37,6 @@ def test_setup_python_package(monkeypatch):
         setup_python_package()
         try:
             targets = [
-                "sonar-project.properties",
                 "MANIFEST.in",
                 "README.rst",
                 ".gitignore",
