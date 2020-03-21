@@ -60,7 +60,8 @@ setup(
         "validate_version_code>=1.0.4",
         "pathlib",
         "pypandoc",
-        "userinput>=1.0.11"
+        "userinput>=1.0.11",
+        "beautifulsoup4"
     ],
     entry_points={
         'console_scripts': [
