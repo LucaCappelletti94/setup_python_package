@@ -1,16 +1,14 @@
 import os
 import re
-
 # To use a consistent encoding
 from codecs import open as copen
-from os import path
 
 from setuptools import find_packages, setup
 
-here = path.abspath(path.dirname(__file__))
+here = os.path.abspath(os.path.dirname(__file__))
 
 # Get the long description from the relevant file
-with copen(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with copen(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 
@@ -28,22 +26,28 @@ def find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 
 
-__version__ = find_version("setup_python_package", "__version__.py")
+__version__ = find_version("setup_python_package_test_reporitory", "__version__.py")
 
-test_deps = ['pytest', 'pytest-cov', 'coveralls', 'httmock']
+test_deps =[
+    "codacy-coverage",
+    "coveralls",
+    "pytest",
+    "pytest-cov",
+    "validate_version_code"
+]
 
 extras = {
     'test': test_deps,
 }
 
 setup(
-    name='setup_python_package',
+    name='setup_python_package_test_reporitory',
     version=__version__,
-    description="A python package that helps you create a python package.",
+    description="Repository for executing advanced tests in setup_python_package.",
     long_description=long_description,
-    url="https://github.com/LucaCappelletti94/setup_python_package",
-    author="Luca Cappelletti",
-    author_email="cappelletti.luca94@gmail.com",
+    url="https://github.com/LucaCappelletti94/setup_python_package_test_reporitory",
+    author="cappelletti.luca94@gmail.com",
+    author_email="LucaCappelletti94",
     # Choose your license
     license='MIT',
     include_package_data=True,
@@ -54,19 +58,7 @@ setup(
     ],
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     tests_require=test_deps,
-    install_requires=[
-        "gitpython",
-        "requests",
-        "validate_version_code>=1.0.4",
-        "pathlib",
-        "pypandoc",
-        "userinput>=1.0.13",
-        "beautifulsoup4"
-    ],
-    entry_points={
-        'console_scripts': [
-            'spp = setup_python_package:setup_python_package',
-        ],
-    },
+    # Add here the package dependencies
+    install_requires=[],
     extras_require=extras,
 )

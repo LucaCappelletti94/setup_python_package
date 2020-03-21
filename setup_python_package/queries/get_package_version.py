@@ -9,6 +9,5 @@ def get_package_version() -> str:
         label="Enter the package version to use",
         default=get_default_package_version(),
         validator="version_code",
-        cache=False,
-        maximum_attempts=50
+        cache=False
     )

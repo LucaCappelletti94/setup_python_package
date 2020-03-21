@@ -25,8 +25,7 @@ def get_codacy_code(automatically_open_browser: bool):
     test_reported_id = userinput(
         "CODACY PROJECT TOKEN",
         validator=validate_codacy_code,
-        cache=False,
-        maximum_attempts=50
+        cache=False
     )
 
     subprocess.run([

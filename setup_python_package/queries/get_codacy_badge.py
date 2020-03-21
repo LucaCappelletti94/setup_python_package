@@ -19,8 +19,7 @@ def get_codacy_badge(automatically_open_browser: bool):
         "codacy",
         label="Please insert the Codacy Badge (RST format):",
         validator=validate_badge_generator("Badge_Grade"),
-        cache=False,
-        maximum_attempts=50
+        cache=False
     )
 
     add_badge(

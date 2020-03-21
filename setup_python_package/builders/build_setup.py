@@ -16,14 +16,14 @@ def build_setup(package: str, short_description: str):
             content = f.read()
         try:
             if "test_deps" in content:
-                test_dependencies = list(set(test_dependencies + [
+                test_dependencies = sorted(set(test_dependencies + [
                     key.strip("\"' \n") for key in re.compile(r"test_deps\s*=\s*\[([\s\S]+?)\]").findall(content)[0].split(",")
                 ]))
         except Exception:
             pass
         try:
             if "install_requires" in content:
-                install_dependencies = list(set(install_dependencies+[
+                install_dependencies = sorted(set(install_dependencies+[
                     key.strip("\"' \n") for key in re.compile(r"install_requires\s*=\s*\[([\s\S]+?)\]").findall(content)[0].split(",")
                 ]))
         except Exception:

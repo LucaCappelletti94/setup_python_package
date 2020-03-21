@@ -10,6 +10,5 @@ def get_package_author_email() -> str:
         default=load_repository_author_email(),
         validator="email",
         auto_clear=True,
-        cache=False,
-        maximum_attempts=50
+        cache=False
     )

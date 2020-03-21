@@ -7,7 +7,7 @@ from httmock import urlmatch, HTTMock
 def auto_setup_python_package(label):
     if label.startswith("Do you want me to open the browser automatically?"):
         return "no"
-    if label.startswith("Please insert sonar project key:"):
+    if label.startswith("Please insert SonarCloud access token"):
         return "1111111111111111111111111111111111111111"
     if label.startswith("Please insert TEST REPORTER ID:"):
         return "c60e9f5957ec3318705c245a486a38258b4f52d63f090160dbbbd4043d265595"
@@ -35,4 +35,25 @@ def test_setup_python_package(monkeypatch):
         os.remove("setup.py")
         setup_python_package()
         setup_python_package()
-    delete_test_repo()
+        try:
+            targets = [
+                "setup.py",
+                "suggested_setup.py",
+                "sonar-project.properties",
+                "MANIFEST.in",
+                "README.rst",
+                ".gitignore",
+                "setup_python_package_test_reporitory/__version__.py",
+                "setup_python_package_test_reporitory/__init__.py"
+            ]
+            for target in targets:
+                with open(target, "r") as f1:
+                    d1 = f1.read()
+                with open(f"../expected/{target}", "r") as f2:
+                    d2 = f2.read()
+                assert d1==d2
+            delete_test_repo()
+        except (Exception, AssertionError) as e:
+            delete_test_repo()
+            raise e
+    

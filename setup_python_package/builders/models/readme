@@ -59,4 +59,4 @@ get slightly different results, here's three of them:
 
 .. |code_climate_coverage| image:: {code_climate_coverage_url}
     :target: https://codeclimate.com/github/{organization}/{repository}/test_coverage
-    :alt: Code Climate Coverate
+    :alt: Code Climate Coverage

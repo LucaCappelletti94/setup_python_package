@@ -3,6 +3,9 @@
 .coverage*
 .notipy.json
 .single_run
-.userinput.json.vscode/
+.userinput.json
 __pycache__
 log.txt
+*.egg-info
+.pytest_cache
+.vscode

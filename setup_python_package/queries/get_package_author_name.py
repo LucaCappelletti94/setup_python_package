@@ -13,6 +13,5 @@ def get_package_author_name() -> str:
             "strip"
         ],
         auto_clear=True,
-        cache=False,
-        maximum_attempts=50
+        cache=False
     )

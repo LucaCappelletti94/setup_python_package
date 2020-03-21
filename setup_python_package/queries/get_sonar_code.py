@@ -19,8 +19,7 @@ def get_sonar_code(automatically_open_browser: bool, project_key:str):
     sonar_key = userinput(
         "SonarCloud access token",
         validator=validate_sonar_key,
-        cache=False,
-        maximum_attempts=50
+        cache=False
     )
     result = subprocess.Popen(
         [

@@ -14,8 +14,7 @@ def get_code_climate_code(automatically_open_browser: bool):
     test_reported_id = userinput(
         "TEST REPORTER ID",
         validator=validate_code_climate_code,
-        cache=False,
-        maximum_attempts=50
+        cache=False
     )
     subprocess.run([
         "travis",

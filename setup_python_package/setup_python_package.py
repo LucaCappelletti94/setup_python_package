@@ -37,7 +37,7 @@ def start_build():
         organization_key=organization_key,
         project_key=project_key
     )
-    build_travis(package, automatically_open_browser, project_key)
+    build_travis(package, automatically_open_browser, project_key, organization_key)
     enable_coveralls(automatically_open_browser)
     build_readme(package, short_description, project_key)
 

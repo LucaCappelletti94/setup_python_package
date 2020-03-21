@@ -9,6 +9,5 @@ def get_sonar_project_key() -> str:
         default=get_default_sonar_project_key(),
         validator="non_empty",
         auto_clear=True,
-        cache=False,
-        maximum_attempts=50
+        cache=False
     )
