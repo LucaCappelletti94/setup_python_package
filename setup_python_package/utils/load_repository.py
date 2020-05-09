@@ -1,5 +1,6 @@
 import os
 from git import Repo
+import re
 
 
 def load_repository():
@@ -24,7 +25,8 @@ def load_repository_author_name() -> str:
 
 def load_repository_organization() -> str:
     """Return repository author name."""
-    return load_repository_url().rsplit("/", 3)[-2]
+    regex = re.compile(r"[\/:]([\w\d]+)\/")
+    return regex.findall(load_repository_url())[0]
 
 
 def load_repository_author_email() -> str:

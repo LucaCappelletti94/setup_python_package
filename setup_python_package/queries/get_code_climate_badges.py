@@ -12,9 +12,12 @@ def get_code_climate_badges():
 
     soup = BeautifulSoup(requests.get(url).text, 'html.parser')
 
-    add_badge("code_climate", "code_climate_maintainability_url", extract_image_url(
+    maintainability = extract_image_url(
         soup.find(id="maintainability-restructured").text
-    ))
-    add_badge("code_climate", "code_climate_coverage_url", extract_image_url(
+    )
+    coverage = extract_image_url(
         soup.find(id="test-coverage-restructured").text
-    ))
+    )
+
+    add_badge("code_climate", "code_climate_maintainability_url", maintainability)
+    add_badge("code_climate", "code_climate_coverage_url", coverage)
