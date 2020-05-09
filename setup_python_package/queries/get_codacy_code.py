@@ -22,6 +22,11 @@ def get_codacy_code(automatically_open_browser: bool):
             new=2,
             autoraise=True
         )
+    print("Go to your repository on Codacy and go to settings/Integrations.")
+    print("Now add a new Integration (blue button on the top right).")
+    print("Choose project API.")
+    print("Copy the code available under the new project API button.")
+    
     test_reported_id = userinput(
         "CODACY PROJECT TOKEN",
         validator=validate_codacy_code,
