@@ -4,7 +4,6 @@ from .queries import get_package_name, get_short_description, get_package_versio
 from .builders import build_readme, build_gitignore, build_version, build_init, build_tests, build_setup, build_travis, build_sonar
 from userinput import userinput
 from .enablers import enable_coveralls
-import traceback
 import os
 
 

@@ -48,9 +48,8 @@ def test_setup_python_package(monkeypatch):
                     d1 = f1.read()
                 with open(f"../expected/{target}", "r") as f2:
                     d2 = f2.read()
-                assert d1==d2
+                assert d1 == d2
             delete_test_repo()
         except (Exception, AssertionError) as e:
             delete_test_repo()
             raise e
-    
