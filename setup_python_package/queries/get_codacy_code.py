@@ -13,7 +13,7 @@ def validate_codacy_code(code: str):
 def get_codacy_code(automatically_open_browser: bool):
     enable_codacy(automatically_open_browser)
     if automatically_open_browser:
-        input("Press any key to go to the codacy project settings now to get the project token.")
+        input("Press enter to go to the codacy project settings now to get the project token.")
         webbrowser.open(
             "https://app.codacy.com/app/{account}/{repository}/settings/integrations".format(
                 account=load_repository_author_name(),
