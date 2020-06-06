@@ -1,6 +1,6 @@
 from .get_python_package_informations import get_python_package_informations
 import json
-
+import simplejson
 
 def python_package_exists(package: str) -> bool:
     """Return a boolean representing if given package is online on pypi.
@@ -17,5 +17,5 @@ def python_package_exists(package: str) -> bool:
     try:
         get_python_package_informations(package)
         return True
-    except json.decoder.JSONDecodeError:
+    except (json.decoder.JSONDecodeError, simplejson.decoder.JSONDecodeError):
         return False
