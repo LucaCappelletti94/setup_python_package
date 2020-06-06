@@ -61,7 +61,8 @@ setup(
         "pathlib",
         "pypandoc",
         "userinput>=1.0.13",
-        "beautifulsoup4"
+        "beautifulsoup4",
+        "simplejson"
     ],
     entry_points={
         'console_scripts': [
