@@ -8,7 +8,10 @@ def build_readme(
     package: str,
     short_description: str,
     project_key
-):
+): 
+    badges = load_badges()
+    if "codacy" not in badges:
+        badges["codacy"] = ""
     with open("{}/models/readme".format(os.path.dirname(os.path.abspath(__file__))), "r") as source:
         with open("README.rst", "w") as sink:
             sink.write(source.read().format(
@@ -19,7 +22,7 @@ def build_readme(
                 short_description=short_description,
                 long_description=get_long_description(),
                 project_key=project_key,
-                **load_badges()
+                **badges
             ))
     if os.path.exists("README.md"):
         os.remove("README.md")
